@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Erosión Socioterritorial y Extractivismo Petrolero en Tabasco | ECOSUR</title>
+  <meta name="description" content="Proyecto de investigación humanística sobre erosión costera, extractivismo petrolero y comunidades pesqueras en la costa de Tabasco. Convocatoria Nacional de Investigación Científica y Humanística 2026.">
+  <meta name="author" content="Dr. Armando Hernández de la Cruz - ECOSUR">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="#inicio" class="navbar-brand">
+        <div class="brand-icon">🌊</div>
+        <span class="brand-text">Erosión Socioterritorial</span>
+      </a>
+      <button class="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#inicio">Inicio</a></li>
+        <li><a href="#proyecto">Proyecto</a></li>
+        <li><a href="#equipo">Equipo</a></li>
+        <li><a href="#comunidades">Comunidades</a></li>
+        <li><a href="#galeria">Galería</a></li>
+        <li><a href="#metodologia">Metodología</a></li>
+        <li><a href="#resultados">Resultados</a></li>
+        <li><a href="#mapa">Mapa</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="inicio">
+    <div class="hero-particles"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span>📋</span> Convocatoria Nacional de Investigación Científica y Humanística 2026
+      </div>
+      <h1 class="hero-title">
+        Erosión <span class="highlight">Socioterritorial</span> y Extractivismo Petrolero en la Costa de Tabasco
+      </h1>
+      <p class="hero-subtitle">
+        Transformaciones territoriales, reproducción social y justicia socioambiental en comunidades pesqueras del Golfo de México
+      </p>
+      <p class="hero-meta">
+        <strong>Dr. Armando Hernández de la Cruz</strong> — Responsable Técnico<br>
+        El Colegio de la Frontera Sur · Unidad Villahermosa, Tabasco
+      </p>
+      <div class="hero-buttons">
+        <a href="#proyecto" class="btn btn-primary">Conocer el Proyecto</a>
+        <a href="#metodologia" class="btn btn-outline">Metodología</a>
+        <a href="#galeria" class="btn btn-outline">Galería Fotográfica</a>
+      </div>
+    </div>
+    <div class="hero-wave">
+      <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
+        <path fill="#f8f9fa" d="M0,40 C360,80 720,0 1080,40 C1260,60 1380,50 1440,45 L1440,80 L0,80 Z"></path>
+      </svg>
+    </div>
+  </section>
+
+  <!-- ==================== RESUMEN EJECUTIVO ==================== -->
+  <section class="section section-alt" id="proyecto">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Sobre el Proyecto</span>
+        <h2 class="section-title">Erosión Socioterritorial y Extractivismo Petrolero</h2>
+        <p class="section-desc">Investigación humanística sobre las transformaciones territoriales en comunidades pesqueras de la costa de Tabasco</p>
+      </div>
+
+      <!-- Info Cards -->
+      <div class="info-grid reveal">
+        <div class="info-card">
+          <div class="info-card-icon blue">🔬</div>
+          <h3>Área de Conocimiento</h3>
+          <p>Ciencias Sociales y Humanidades — Sociología rural, estudios territoriales y ecología política.</p>
+          <div style="margin-top: 1rem;">
+            <span class="tag">Territorio</span>
+            <span class="tag">Extractivismo</span>
+            <span class="tag">Pesca artesanal</span>
+            <span class="tag gold">Erosión costera</span>
+            <span class="tag">Sociología ambiental</span>
+            <span class="tag gold">Golfo de México</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon gold">🏛️</div>
+          <h3>Institución Beneficiaria</h3>
+          <p>El Colegio de la Frontera Sur (ECOSUR), Unidad Villahermosa — Centro Público de Investigación con trayectoria en análisis interdisciplinario de problemáticas socioambientales en el sureste mexicano.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon green">👤</div>
+          <h3>Responsable Técnico</h3>
+          <p><strong>Dr. Armando Hernández de la Cruz</strong><br>Técnico Académico Titular C — Departamento de Sociedad y Cultura, ECOSUR Villahermosa. Especialista en estudios de género, reproducción social y desigualdad en contextos costeros.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon red">📍</div>
+          <h3>Áreas de Estudio</h3>
+          <p>Tres comunidades costeras de Tabasco con variación analítica en erosión, infraestructura petrolera y dependencia pesquera:</p>
+          <div style="margin-top: 1rem;">
+            <span class="tag">El Bosque (Centla)</span>
+            <span class="tag gold">Sánchez Magallanes (Cárdenas)</span>
+            <span class="tag">El Pénjamo (Paraíso)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs-container reveal" style="margin-top: 3rem;">
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="resumen-ejecutivo">Resumen Ejecutivo</button>
+          <button class="tab-btn" data-tab="resumen-publico">Resumen Público</button>
+          <button class="tab-btn" data-tab="antecedentes">Antecedentes</button>
+          <button class="tab-btn" data-tab="pertinencia">Pertinencia Humanística</button>
+        </div>
+        <div class="tab-panel active" id="resumen-ejecutivo">
+          <div class="content-block">
+            <p>La costa del estado de Tabasco experimenta un proceso acelerado de erosión que ha provocado pérdida de territorio, afectaciones a la infraestructura y una creciente vulnerabilidad en comunidades pesqueras. Este fenómeno, ampliamente documentado desde enfoques geomorfológicos, revela una brecha crítica en la comprensión de sus implicaciones socioterritoriales, particularmente en contextos donde converge con el extractivismo petrolero offshore en el Golfo de México.</p>
+            <p>El proyecto analiza los procesos de erosión socioterritorial derivados de la interacción entre la erosión costera, el extractivismo petrolero y la crisis de la pesca artesanal, así como sus efectos en la reproducción social, la organización comunitaria y la configuración de desigualdades territoriales en comunidades del litoral tabasqueño.</p>
+            <p>Desde un enfoque interdisciplinario que articula la ecología política y la teoría de la reproducción social, la investigación explica la erosión costera como un fenómeno socioecológico, resultado de relaciones históricas de poder, transformación productiva y desigualdad territorial, y no únicamente como un proceso físico-ambiental.</p>
+            <p>El estudio implementa un diseño cualitativo comparativo de casos múltiples en tres comunidades costeras representativas: El Bosque (Centla), Sánchez Magallanes (Cárdenas) y El Pénjamo (Paraíso). Integra entrevistas en profundidad, cartografía social participativa, análisis de políticas públicas y procesamiento de información geoespacial para reconstruir las dinámicas territoriales, productivas y sociales de los últimos 25 años.</p>
+            <p>Como resultados, el proyecto desarrolla un modelo analítico de erosión socioterritorial, genera evidencia empírica comparativa sobre los impactos del extractivismo y la erosión en comunidades costeras, y produce diagnósticos territoriales integrales. Asimismo, aporta insumos estratégicos para la toma de decisiones públicas, incluyendo recomendaciones para políticas de adaptación costera, ordenamiento territorial y fortalecimiento de economías locales.</p>
+            <p>En este marco, el proyecto propone la noción de <strong>erosión socioterritorial</strong> como un aporte conceptual central, entendida como una categoría analítica que permite explicar de manera integrada las interacciones entre cambio ambiental, extractivismo y reorganización de la vida social en contextos costeros.</p>
+          </div>
+        </div>
+        <div class="tab-panel" id="resumen-publico">
+          <div class="content-block">
+            <p>La costa de Tabasco enfrenta una rápida pérdida de territorio debido a la erosión, lo que afecta viviendas, infraestructura y las formas de vida de comunidades dedicadas a la pesca. Aunque este problema se ha estudiado desde lo ambiental, aún se sabe poco sobre cómo impacta la vida cotidiana de las personas, especialmente en regiones donde también existe actividad petrolera en el mar.</p>
+            <p>Este proyecto analiza cómo la combinación de la erosión costera, la industria petrolera y la crisis de la pesca está transformando la vida de comunidades costeras en Tabasco. Se analiza cómo estos procesos afectan el trabajo, la economía familiar, la organización comunitaria y las desigualdades entre distintos grupos, como mujeres, jóvenes y personas con menos recursos.</p>
+            <p>La investigación se realizará en tres comunidades costeras y utilizará entrevistas, talleres participativos y herramientas de mapeo comunitario para recoger información directamente de las personas que viven estos cambios. Esto identifica los principales problemas, así como las estrategias que las comunidades desarrollan para adaptarse.</p>
+            <p>Como resultado, el proyecto genera información útil para mejorar programas públicos dirigidos a comunidades pesqueras, así como propuestas para una mejor gestión del territorio y la adaptación al cambio climático. También se elaborarán materiales accesibles para compartir los hallazgos con las propias comunidades y con el público en general.</p>
+            <p>Este trabajo contribuirá a visibilizar las desigualdades que enfrentan las comunidades costeras y a fortalecer su participación en las decisiones que afectan sus territorios. De esta manera, el proyecto aporta conocimiento que sea útil para la academia y para la sociedad.</p>
+          </div>
+        </div>
+        <div class="tab-panel" id="antecedentes">
+          <div class="content-block">
+            <p>La costa del estado de Tabasco es uno de los territorios socioambientales más dinámicos y vulnerables del sureste mexicano. En las últimas décadas, diversos estudios han documentado procesos acelerados de transformación litoral relacionados con cambios en la línea de costa, dinámicas hidrosedimentarias y creciente exposición a eventos climáticos extremos (Hernández Santana et al., 2008; Núñez Gómez et al., 2016; Gama Campillo et al., 2023).</p>
+            <p>Simultáneamente, desde la década de 1970, la región ha sido escenario de intensa actividad petrolera offshore en el Golfo de México, particularmente en la Sonda de Campeche. La literatura ha documentado los efectos ambientales acumulativos, como descargas de agua de producción y contaminación marina (García-Cuéllar, 2004; Soto et al., 2014; Schifter et al., 2015).</p>
+            <p>Más allá de lo ecológico, el extractivismo energético ha reconfigurado dinámicas territoriales y productivas, generando tensiones entre economías locales y políticas energéticas, debido a la expansión de infraestructura, transformaciones laborales y restricciones en el acceso a zonas de pesca (Ramos et al., 2022; Reyes y Hernández, 2023).</p>
+            <p>La literatura latinoamericana sobre economías extractivas muestra cómo estas industrias tienden a reconfigurar territorios y economías locales, generando desigualdades territoriales y conflictos socioambientales (Gudynas, 2015; Svampa, 2019).</p>
+            <p>Pese a estos estudios sectoriales, persiste una brecha en la comprensión integrada de las transformaciones costeras. Erosión litoral, extractivismo energético y crisis pesquera suelen analizarse aisladamente, limitando la visión sobre sus interacciones y efectos acumulativos en la vida, organización social y cultura de las comunidades (Castillo et al., 2021; Mendoza &amp; López, 2022).</p>
+            <p>Este proyecto supera la fragmentación analítica, identificando los mecanismos socioterritoriales mediante los cuales las economías extractivas modifican simultáneamente paisajes ecológicos, sistemas productivos y estructuras domésticas. Considera la costa tabasqueña como un sistema socioecológico donde convergen procesos ambientales, económicos y políticos de larga duración (Bebbington &amp; Bury, 2013; Escobar, 2018).</p>
+            <p>La <strong>erosión socioterritorial</strong> se define como un proceso socioecológico mediante el cual la degradación física del territorio se entrelaza con dinámicas de desposesión, reconfiguración productiva y desigualdad estructural, alterando las bases materiales y simbólicas de la reproducción social.</p>
+          </div>
+        </div>
+        <div class="tab-panel" id="pertinencia">
+          <div class="content-block">
+            <p>La presente investigación se inscribe en el campo de las humanidades y las ciencias sociales, particularmente en la sociología rural, la ecología política y los estudios territoriales críticos. Su objetivo es analizar de manera interdisciplinaria las transformaciones socioterritoriales que experimentan las comunidades pesqueras del litoral tabasqueño ante la convergencia de tres procesos clave: erosión costera acelerada, expansión del extractivismo petrolero offshore y transformación de las economías pesqueras artesanales.</p>
+            <p>A diferencia de los enfoques predominantes centrados en dimensiones físicas o geomorfológicas, este proyecto propone una perspectiva humanística que entiende la erosión costera como un fenómeno socioecológico, capaz de reconfigurar territorios, economías locales, relaciones de género y formas de organización comunitaria.</p>
+            <p>El proyecto contribuye al desarrollo de marcos conceptuales innovadores —como la noción de erosión socioterritorial— que integran dinámicas ambientales, extractivismo y reproducción social en contextos costeros. De este modo, se alinea con los objetivos de la Convocatoria Nacional de Investigación Científica y Humanística 2026, al promover pensamiento crítico, conocimiento situado y su aplicación en la construcción de políticas públicas orientadas a la adaptación costera, la justicia socioambiental y la equidad territorial.</p>
+            <p>Este enfoque crítico interdisciplinario dialoga con debates internacionales contemporáneos en torno a la justicia climática, el extractivismo en el sur global y las transformaciones socioecológicas en territorios costeros. En particular, se vincula con discusiones sobre desposesión territorial, <em>slow violence</em> y vulnerabilidad diferencial, aportando evidencia empírica situada desde el Golfo de México.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PREGUNTAS Y OBJETIVOS ==================== -->
+  <section class="section" id="objetivos">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Preguntas y Objetivos</span>
+        <h2 class="section-title">Direccionamiento de la Investigación</h2>
+      </div>
+
+      <div class="tabs-container reveal">
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="preguntas">Preguntas de Investigación</button>
+          <button class="tab-btn" data-tab="objetivo-general">Objetivo General</button>
+          <button class="tab-btn" data-tab="objetivos-especificos">Objetivos Específicos</button>
+          <button class="tab-btn" data-tab="metas">Metas</button>
+        </div>
+
+        <div class="tab-panel active" id="preguntas">
+          <div class="content-block">
+            <h3>Pregunta Central</h3>
+            <p style="font-size: 1.05rem; color: var(--primary); background: var(--sand-light); padding: 1.5rem; border-radius: var(--radius); border-left: 4px solid var(--accent);">
+              ¿De qué manera la interacción entre erosión costera, extractivismo petrolero offshore y transformación de las economías pesqueras está reconfigurando las condiciones de reproducción social, organización territorial y vulnerabilidad socioambiental en comunidades costeras del estado de Tabasco?
+            </p>
+
+            <h3 style="margin-top: 2rem;">Preguntas Específicas</h3>
+            <ol>
+              <li><strong>¿Qué mecanismos socioterritoriales</strong> explican la interacción entre erosión costera, extractivismo petrolero y transformación de las economías pesqueras en comunidades del litoral tabasqueño?</li>
+              <li><strong>¿Cómo se reconfiguran las estrategias de reproducción social</strong> de los hogares pesqueros frente a la pérdida territorial y la crisis productiva?</li>
+              <li><strong>¿De qué manera se redistribuyen los riesgos ambientales, económicos y sociales</strong> entre distintos grupos sociales (género, edad y posición socioeconómica)?</li>
+              <li><strong>¿Qué formas de adaptación territorial y organización comunitaria</strong> emergen frente a estos procesos?</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="objetivo-general">
+          <div class="content-block">
+            <div style="background: var(--sand-light); padding: 2rem; border-radius: var(--radius); border-left: 4px solid var(--accent); margin-bottom: 1.5rem;">
+              <h3 style="margin-bottom: 0.5rem;">Objetivo General</h3>
+              <p style="font-size: 1.05rem; margin: 0;">Caracterizar los procesos de erosión socioterritorial derivados de la confluencia entre la erosión costera, el extractivismo petrolero offshore y el colapso de la pesca artesanal en tres comunidades del litoral tabasqueño y su impacto en la transformación de las dinámicas de reproducción social, debilitamiento de la organización comunitaria y profundización de las desigualdades territoriales.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="objetivos-especificos">
+          <div class="content-block">
+            <div class="results-list">
+              <div class="result-item">
+                <div class="result-number">1</div>
+                <div class="result-content">
+                  <h3>Diagnóstico biofísico y productivo</h3>
+                  <p>Diagnosticar los impactos biofísicos y productivos derivados de la erosión costera, la actividad petrolera offshore y la crisis pesquera.</p>
+                </div>
+              </div>
+              <div class="result-item">
+                <div class="result-number">2</div>
+                <div class="result-content">
+                  <h3>Estrategias de reproducción social</h3>
+                  <p>Analizar las estrategias de reproducción social y las formas de organización comunitaria que emergen como respuesta al proceso de erosión socioterritorial.</p>
+                </div>
+              </div>
+              <div class="result-item">
+                <div class="result-number">3</div>
+                <div class="result-content">
+                  <h3>Reconfiguración de desigualdades</h3>
+                  <p>Evaluar la reconfiguración de las desigualdades socio-territoriales en las comunidades costeras, a partir de la distribución diferenciada de los costos ambientales y los beneficios del extractivismo.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="metas">
+          <div class="content-block">
+            <h4>Meta 1.1</h4>
+            <p>Calcular las tasas de retroceso costero en un período mínimo de 25 años (2000-2025) para cada una de las tres comunidades, mediante procesamiento de imágenes satelitales Landsat y Sentinel-2.</p>
+            <div class="divider"></div>
+            <h4>Meta 1.2</h4>
+            <p>Identificar y georreferenciar al menos el 90% de la infraestructura petrolera (plataformas, ductos, muelles, pozos) presente en un radio de 20 km alrededor de cada comunidad.</p>
+            <div class="divider"></div>
+            <h4>Meta 1.3</h4>
+            <p>Documentar, a través de entrevistas y cartografía social, al menos 15 eventos de afectación pesquera por comunidad, estableciendo su correlación temporal y espacial con la actividad petrolera y la erosión costera.</p>
+            <div class="divider"></div>
+            <h4>Meta 2.1</h4>
+            <p>Identificar y clasificar las principales estrategias de reproducción social implementadas por las familias pesqueras, a partir del análisis de 15-20 entrevistas por localidad.</p>
+            <div class="divider"></div>
+            <h4>Meta 2.2</h4>
+            <p>Reconstruir, mediante al menos 3 historias de vida por comunidad, la memoria territorial de los últimos 30-40 años.</p>
+            <div class="divider"></div>
+            <h4>Meta 2.3</h4>
+            <p>Caracterizar las formas de organización comunitaria existentes y su evolución, identificando al menos 3 acciones colectivas significativas por comunidad en la última década.</p>
+            <div class="divider"></div>
+            <h4>Meta 3.1</h4>
+            <p>Identificar y mapear, mediante cartografía social participativa y análisis SIG, las zonas de exclusión o conflicto por uso del territorio en cada comunidad.</p>
+            <div class="divider"></div>
+            <h4>Meta 3.2</h4>
+            <p>Analizar comparativamente el acceso a programas gubernamentales y empleos petroleros entre distintos grupos sociales en las tres localidades.</p>
+            <div class="divider"></div>
+            <h4>Meta 3.3</h4>
+            <p>Elaborar un índice cualitativo de desigualdad socio-territorial que establezca una tipología comparativa entre las tres comunidades.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== EQUIPO ==================== -->
+  <section class="section section-alt" id="equipo">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Equipo de Investigación</span>
+        <h2 class="section-title">Grupo Interinstitucional Nacional</h2>
+        <p class="section-desc">11 personas investigadoras adscritas a cuatro instituciones de educación superior o centros públicos de investigación nacionales</p>
+      </div>
+
+      <div class="table-wrapper reveal">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Rol</th>
+              <th>Nombre</th>
+              <th>Grado / SNI</th>
+              <th>Institución</th>
+              <th>Función en el Proyecto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="role-badge leader">Responsable Técnico</span></td>
+              <td><strong>Dr. Armando Hernández de la Cruz</strong></td>
+              <td>Dr., SNI 1</td>
+              <td>ECOSUR, Unidad Villahermosa</td>
+              <td>Dirección académica; articulación conceptual; coordinación metodológica</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigador</span></td>
+              <td>Dr. Armando Avalos Jiménez</td>
+              <td>Dr., SNI 1</td>
+              <td>ECOSUR, Unidad Villahermosa</td>
+              <td>Sistematización territorial; análisis comparativo socioecológico</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigador</span></td>
+              <td>Dr. Everardo Barba Macías</td>
+              <td>Dr., SNI 1</td>
+              <td>ECOSUR, Unidad Villahermosa</td>
+              <td>Integración de dimensión biofísica y vulnerabilidad costera</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigador</span></td>
+              <td>Dr. Rodimiro Ramos Reyes</td>
+              <td>Dr., SNI 2</td>
+              <td>Universidad Popular de la Chontalpa</td>
+              <td>Gobernanza costera y análisis de políticas públicas regionales</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigador</span></td>
+              <td>Dr. Miguel Palomeque de la Cruz</td>
+              <td>Dr., SNI 1</td>
+              <td>UJAT</td>
+              <td>Marco jurídico-institucional costero y energético</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigadora</span></td>
+              <td>Dra. Dora Elia Ramos Muñoz</td>
+              <td>Dra., SNI 1</td>
+              <td>ECOSUR, Unidad Villahermosa</td>
+              <td>Análisis de desigualdad territorial y justicia socioambiental</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigadora</span></td>
+              <td>Dra. María de los Ángeles Pérez Villar</td>
+              <td>Dra., SIN</td>
+              <td>UJAT</td>
+              <td>Perspectiva de género en reproducción social</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigador</span></td>
+              <td>Dr. Federico Reyes Grande</td>
+              <td>Dr. candidato</td>
+              <td>ECOSUR, Unidad Villahermosa</td>
+              <td>Análisis socioeconómico territorial</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigadora</span></td>
+              <td>Mtra. Ana del Pilar Villa Peralta</td>
+              <td>Mtra.</td>
+              <td>Instituto Tecnológico Superior de Centla</td>
+              <td>Vinculación comunitaria y coordinación de talleres participativos</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge researcher">Investigador</span></td>
+              <td>Mtro. Juan Juárez Flores</td>
+              <td>Mtro.</td>
+              <td>ECOSUR, Unidad Villahermosa</td>
+              <td>Apoyo en trabajo de campo y cartografía social participativa</td>
+            </tr>
+            <tr>
+              <td><span class="role-badge student">Estudiante</span></td>
+              <td>Mtra. Rosa del Rosario Collado Torres</td>
+              <td>Doctorado en curso</td>
+              <td>ECOSUR, Unidad Villahermosa</td>
+              <td>Entrevistas en profundidad; análisis cualitativo; sistematización</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== COMUNIDADES ==================== -->
+  <section class="section" id="comunidades">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Comunidades de Estudio</span>
+        <h2 class="section-title">Tres Comunidades Costeras de Tabasco</h2>
+        <p class="section-desc">Selección basada en criterios de variación analítica: intensidad de erosión, respuesta institucional, dependencia pesquera e inserción en el corredor costero</p>
+      </div>
+
+      <div class="community-cards reveal">
+        <div class="community-card">
+          <div class="community-card-img">
+            <img src="img/el-bosque.jpg" alt="El Bosque, Centla" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="card-placeholder" style="display:none">
+              <div class="icon">📷</div>
+              <span>El Bosque, Centla</span>
+            </div>
+          </div>
+          <div class="community-card-body">
+            <h3>El Bosque</h3>
+            <div class="location">📍 Municipio de Centla, Tabasco</div>
+            <p>Alta dependencia de la pesca artesanal. Procesos de erosión costera con afectaciones a la infraestructura y los medios de vida de las familias pescadoras. Reorganización del trabajo y los cuidados en familias pesqueras.</p>
+          </div>
+        </div>
+
+        <div class="community-card">
+          <div class="community-card-img">
+            <img src="img/sanchez-magallanes.jpg" alt="Sánchez Magallanes, Cárdenas" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="card-placeholder" style="display:none">
+              <div class="icon">📷</div>
+              <span>Sánchez Magallanes, Cárdenas</span>
+            </div>
+          </div>
+          <div class="community-card-body">
+            <h3>Sánchez Magallanes</h3>
+            <div class="location">📍 Municipio de Cárdenas, Tabasco</div>
+            <p>Villa y Puerto con infraestructura petrolera cercana. Diversificación económica y tensión por extractivismo. Coordinación comunitaria y gobernanza de recursos frente a transformaciones productivas.</p>
+          </div>
+        </div>
+
+        <div class="community-card">
+          <div class="community-card-img">
+            <img src="img/el-penjamo.jpg" alt="El Pénjamo, Paraíso" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+            <div class="card-placeholder" style="display:none">
+              <div class="icon">📷</div>
+              <span>El Pénjamo, Paraíso</span>
+            </div>
+          </div>
+          <div class="community-card-body">
+            <h3>El Pénjamo</h3>
+            <div class="location">📍 Municipio de Paraíso, Tabasco</div>
+            <p>Zona de convergencia entre actividad petrolera offshore y pesca artesanal. Nuevas actividades extractivas, migración laboral, cambios en redes de apoyo y vulnerabilidades territoriales diferenciadas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== GALERÍA ==================== -->
+  <section class="section section-alt" id="galeria">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Galería Fotográfica</span>
+        <h2 class="section-title">Imágenes del Proyecto</h2>
+        <p class="section-desc">Espacio destinado para fotografías del proceso investigativo, comunidades costeras y trabajo de campo</p>
+      </div>
+
+      <!-- INSTRUCCIONES PARA AGREGAR FOTOGRAFÍAS -->
+      <div class="instructions-box reveal">
+        <h3>📋 Cómo agregar fotografías a la galería</h3>
+        <p>Para agregar tus fotografías a esta galería, sigue estos pasos:</p>
+        <ol>
+          <li>Guarda tus imágenes en la carpeta <code>img/</code> con nombres descriptivos sin espacios ni caracteres especiales (usa guiones).</li>
+          <li>Ejemplos de nombres válidos: <code>campo-bosque-01.jpg</code>, <code>reunion-comunitaria.jpg</code>, <code>erosion-playa.jpg</code></li>
+          <li>En la sección de galería más abajo, duplica el bloque <code>gallery-item</code> y cambia la ruta de la imagen.</li>
+        </ol>
+        <p>Formatos recomendados: <strong>JPG</strong> o <strong>PNG</strong>. Tamaño ideal: 1200x900 px o similar.</p>
+        <div class="code-block">&lt;div class="gallery-item" data-src="img/mi-foto.jpg" data-caption="Descripción de la foto"&gt;
+  &lt;img src="img/mi-foto.jpg" alt="Descripción"&gt;
+  &lt;div class="gallery-overlay"&gt;
+    &lt;h4&gt;Título de la foto&lt;/h4&gt;
+    &lt;p&gt;Descripción breve&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+      </div>
+
+      <div class="gallery-grid reveal" style="margin-top: 2rem;">
+        <!-- Bloque 1 - Reemplaza con tu imagen -->
+        <div class="gallery-item" data-src="img/campo-01.jpg" data-caption="Trabajo de campo en comunidad costera">
+          <img src="img/campo-01.jpg" alt="Trabajo de campo" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">📷</span>
+            <span class="placeholder-text">Trabajo de campo<br><small>img/campo-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Trabajo de Campo</h4>
+            <p>Investigación en comunidad costera</p>
+          </div>
+        </div>
+
+        <!-- Bloque 2 -->
+        <div class="gallery-item" data-src="img/erosion-01.jpg" data-caption="Procesos de erosión costera">
+          <img src="img/erosion-01.jpg" alt="Erosión costera" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">🌊</span>
+            <span class="placeholder-text">Erosión costera<br><small>img/erosion-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Erosión Costera</h4>
+            <p>Transformaciones del litoral</p>
+          </div>
+        </div>
+
+        <!-- Bloque 3 -->
+        <div class="gallery-item" data-src="img/comunidad-01.jpg" data-caption="Comunidad pesquera de Tabasco">
+          <img src="img/comunidad-01.jpg" alt="Comunidad pesquera" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">🏘️</span>
+            <span class="placeholder-text">Comunidad pesquera<br><small>img/comunidad-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Comunidad Pesquera</h4>
+            <p>Vida cotidiana en el litoral</p>
+          </div>
+        </div>
+
+        <!-- Bloque 4 -->
+        <div class="gallery-item" data-src="img/taller-01.jpg" data-caption="Taller participativo con comunidades">
+          <img src="img/taller-01.jpg" alt="Taller participativo" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">🤝</span>
+            <span class="placeholder-text">Taller participativo<br><small>img/taller-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Taller Participativo</h4>
+            <p>Cartografía social comunitaria</p>
+          </div>
+        </div>
+
+        <!-- Bloque 5 -->
+        <div class="gallery-item" data-src="img/pesca-01.jpg" data-caption="Actividad pesquera artesanal">
+          <img src="img/pesca-01.jpg" alt="Pesca artesanal" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">🐟</span>
+            <span class="placeholder-text">Pesca artesanal<br><small>img/pesca-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Pesca Artesanal</h4>
+            <p>Economía y reproducción social</p>
+          </div>
+        </div>
+
+        <!-- Bloque 6 -->
+        <div class="gallery-item" data-src="img/infraestructura-01.jpg" data-caption="Infraestructura petrolera en la costa">
+          <img src="img/infraestructura-01.jpg" alt="Infraestructura petrolera" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">🛢️</span>
+            <span class="placeholder-text">Infraestructura petrolera<br><small>img/infraestructura-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Extractivismo Petrolero</h4>
+            <p>Infraestructura offshore</p>
+          </div>
+        </div>
+
+        <!-- Bloque 7 -->
+        <div class="gallery-item" data-src="img/campo-02.jpg" data-caption="Entrevistas en profundidad">
+          <img src="img/campo-02.jpg" alt="Entrevistas" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">🎤</span>
+            <span class="placeholder-text">Entrevistas en profundidad<br><small>img/campo-02.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Entrevistas</h4>
+            <p>Recuperación de memoria territorial</p>
+          </div>
+        </div>
+
+        <!-- Bloque 8 -->
+        <div class="gallery-item" data-src="img/mapa-01.jpg" data-caption="Cartografía social participativa">
+          <img src="img/mapa-01.jpg" alt="Cartografía social" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">🗺️</span>
+            <span class="placeholder-text">Cartografía social<br><small>img/mapa-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Cartografía Social</h4>
+            <p>Mapeo participativo del territorio</p>
+          </div>
+        </div>
+
+        <!-- Bloque 9 -->
+        <div class="gallery-item" data-src="img/equipo-01.jpg" data-caption="Equipo de investigación en campo">
+          <img src="img/equipo-01.jpg" alt="Equipo de investigación" onerror="this.style.display='none'">
+          <div class="gallery-placeholder">
+            <span class="placeholder-icon">👨‍🔬</span>
+            <span class="placeholder-text">Equipo de investigación<br><small>img/equipo-01.jpg</small></span>
+          </div>
+          <div class="gallery-overlay">
+            <h4>Equipo de Investigación</h4>
+            <p>Trabajo interdisciplinario en campo</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MAPA ==================== -->
+  <section class="section" id="mapa">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Ubicación</span>
+        <h2 class="section-title">Mapa de Localización</h2>
+        <p class="section-desc">Zonas de estudio en la costa del estado de Tabasco, Golfo de México</p>
+      </div>
+
+      <div class="map-container reveal">
+        <div id="map"></div>
+        <div class="map-legend">
+          <div class="legend-item">
+            <span class="legend-dot green"></span>
+            El Bosque, Centla
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot blue"></span>
+            Sánchez Magallanes, Cárdenas
+          </div>
+          <div class="legend-item">
+            <span class="legend-dot gold"></span>
+            El Pénjamo, Paraíso
+          </div>
+        </div>
+      </div>
+
+      <!-- Instrucciones para personalizar el mapa -->
+      <div class="instructions-box reveal" style="margin-top: 2rem;">
+        <h3>🗺️ Personalizar el mapa</h3>
+        <p>El mapa usa <a href="https://leafletjs.com/" target="_blank">Leaflet.js</a> con tiles de CARTO (gratuito, sin API key). Para modificar las coordenadas:</p>
+        <ol>
+          <li>Busca las coordenadas exactas de cada comunidad en Google Maps (clic derecho → "¿Qué hay aquí?").</li>
+          <li>Edita el archivo <code>js/main.js</code> y busca el array <code>communities</code>.</li>
+          <li>Actualiza las coordenadas <code>[lat, lng]</code> de cada punto.</li>
+          <li>Para agregar más puntos, duplica un objeto dentro del array.</li>
+        </ol>
+        <div class="code-block">const communities = [
+  {
+    name: 'El Bosque, Centla',
+    coords: [18.4311, -93.0833],  // ← Cambiar coordenadas aquí
+    color: '#27ae60',
+    description: 'Descripción de la comunidad'
+  },
+  // ... agregar más comunidades
+];</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== METODOLOGÍA ==================== -->
+  <section class="section section-alt" id="metodologia">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Metodología</span>
+        <h2 class="section-title">Diseño y Estrategia Metodológica</h2>
+      </div>
+
+      <div class="tabs-container reveal">
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="enfoque">Enfoque y Diseño</button>
+          <button class="tab-btn" data-tab="tecnicas">Técnicas de Recolección</button>
+          <button class="tab-btn" data-tab="analisis">Estrategia de Análisis</button>
+          <button class="tab-btn" data-tab="riesgos">Riesgos y Mitigación</button>
+        </div>
+
+        <div class="tab-panel active" id="enfoque">
+          <div class="content-block">
+            <p>La investigación adopta un <strong>enfoque cualitativo de carácter interpretativo-crítico</strong>, complementado con un componente de análisis espacial. El estudio tiene un alcance explicativo-comprensivo y se desarrolla mediante un <strong>diseño de casos múltiples comparativos</strong>, con selección intencional de tres comunidades del litoral tabasqueño.</p>
+            <h4>Unidad de análisis</h4>
+            <p>Los hogares pesqueros, entendidos como unidades de reproducción social en las que se articulan estrategias económicas, relaciones de cuidado y mecanismos de adaptación frente a procesos de transformación territorial.</p>
+            <h4>Muestreo</h4>
+            <p>Muestreo no probabilístico de tipo intencional (teórico), orientado a capturar la heterogeneidad social y territorial. Criterios de selección: género, edad, tipo de inserción productiva, pertenencia a organizaciones y grado de afectación territorial.</p>
+            <h4>Trabajo de campo</h4>
+            <ul>
+              <li>45–60 entrevistas en profundidad (15–20 por comunidad)</li>
+              <li>9–12 historias de vida (3–4 por comunidad)</li>
+              <li>3 talleres de cartografía social participativa</li>
+              <li>6–9 grupos focales segmentados</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="tecnicas">
+          <div class="content-block">
+            <div class="info-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+              <div class="info-card" style="padding: 1.5rem;">
+                <div class="info-card-icon blue" style="width: 44px; height: 44px; font-size: 1.2rem;">🎤</div>
+                <h3 style="font-size: 1rem;">Entrevistas en Profundidad</h3>
+                <p style="font-size: 0.88rem;">Dirigidas a pescadores, mujeres, líderes comunitarios y actores institucionales para analizar percepciones, estrategias de vida y transformaciones territoriales.</p>
+              </div>
+              <div class="info-card" style="padding: 1.5rem;">
+                <div class="info-card-icon gold" style="width: 44px; height: 44px; font-size: 1.2rem;">📖</div>
+                <h3 style="font-size: 1rem;">Historias de Vida</h3>
+                <p style="font-size: 0.88rem;">Reconstrucción longitudinal de trayectorias familiares y comunitarias para analizar cambios en el territorio, actividades productivas y organización social.</p>
+              </div>
+              <div class="info-card" style="padding: 1.5rem;">
+                <div class="info-card-icon green" style="width: 44px; height: 44px; font-size: 1.2rem;">👁️</div>
+                <h3 style="font-size: 1rem;">Observación Participante</h3>
+                <p style="font-size: 0.88rem;">Registro etnográfico de prácticas cotidianas, dinámicas productivas y formas de organización comunitaria en espacios clave.</p>
+              </div>
+              <div class="info-card" style="padding: 1.5rem;">
+                <div class="info-card-icon red" style="width: 44px; height: 44px; font-size: 1.2rem;">🗺️</div>
+                <h3 style="font-size: 1rem;">Cartografía Social</h3>
+                <p style="font-size: 0.88rem;">Elaboración de mapas comunitarios que identifiquen zonas de pesca, áreas afectadas por erosión, infraestructura petrolera y espacios de conflicto.</p>
+              </div>
+              <div class="info-card" style="padding: 1.5rem;">
+                <div class="info-card-icon blue" style="width: 44px; height: 44px; font-size: 1.2rem;">📄</div>
+                <h3 style="font-size: 1rem;">Análisis Documental</h3>
+                <p style="font-size: 0.88rem;">Revisión de programas gubernamentales, normativa y registros institucionales relacionados con pesca, energía y gestión costera.</p>
+              </div>
+              <div class="info-card" style="padding: 1.5rem;">
+                <div class="info-card-icon gold" style="width: 44px; height: 44px; font-size: 1.2rem;">🛰️</div>
+                <h3 style="font-size: 1rem;">Análisis Geoespacial</h3>
+                <p style="font-size: 0.88rem;">Procesamiento de imágenes satelitales (Landsat y Sentinel-2), cálculo de tasas de retroceso costero y georreferenciación de infraestructura petrolera.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="analisis">
+          <div class="content-block">
+            <h4>1. Análisis Cualitativo</h4>
+            <p>Codificación temática del material empírico mediante ATLAS.ti, orientada a identificar estrategias de reproducción social, percepciones de riesgo, dinámicas organizativas y desigualdades socio-territoriales.</p>
+            <div class="divider"></div>
+            <h4>2. Análisis Espacial</h4>
+            <p>Integración de capas geográficas para identificar patrones territoriales de afectación, conflicto y uso del espacio.</p>
+            <div class="divider"></div>
+            <h4>3. Análisis Comparativo</h4>
+            <p>Comparación sistemática entre casos basada en categorías homogéneas: condiciones territoriales, dinámicas productivas, organización comunitaria, estrategias familiares y desigualdades socioambientales.</p>
+            <div class="divider"></div>
+            <h4>Triangulación</h4>
+            <p>La investigación se sustenta en una triangulación sistemática entre datos cualitativos, información espacial y fuentes documentales, articulada mediante un enfoque de triangulación convergente.</p>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="riesgos">
+          <div class="content-block">
+            <div class="risk-grid">
+              <div class="risk-item warning">
+                <div style="min-width: 40px; font-size: 1.5rem;">🌪️</div>
+                <div>
+                  <h4>Condiciones climáticas adversas</h4>
+                  <p><strong>Riesgo:</strong> Tormentas, huracanes y nortes que limitan el acceso a campo.</p>
+                  <p><strong>Mitigación:</strong> Programación flexible del trabajo de campo, priorizando temporada de secas y reprogramación según condiciones.</p>
+                </div>
+              </div>
+              <div class="risk-item info">
+                <div style="min-width: 40px; font-size: 1.5rem;">⏰</div>
+                <div>
+                  <h4>Retrasos en trabajo de campo</h4>
+                  <p><strong>Riesgo:</strong> Disponibilidad de informantes y accesibilidad territorial variable.</p>
+                  <p><strong>Mitigación:</strong> Ajuste dinámico del cronograma, redistribución de actividades entre comunidades y márgenes de tiempo adicionales.</p>
+                </div>
+              </div>
+              <div class="risk-item warning">
+                <div style="min-width: 40px; font-size: 1.5rem;">🤝</div>
+                <div>
+                  <h4>Baja participación comunitaria</h4>
+                  <p><strong>Riesgo:</strong> Desconfianza o saturación por estudios previos.</p>
+                  <p><strong>Mitigación:</strong> Estrategia gradual de vinculación, consentimiento informado claro y devolución de resultados como mecanismo de confianza.</p>
+                </div>
+              </div>
+              <div class="risk-item info">
+                <div style="min-width: 40px; font-size: 1.5rem;">📊</div>
+                <div>
+                  <h4>Sobrecarga de información</h4>
+                  <p><strong>Riesgo:</strong> Alto volumen de datos cualitativos y espaciales.</p>
+                  <p><strong>Mitigación:</strong> Sistematización y codificación simultánea al trabajo de campo mediante software especializado.</p>
+                </div>
+              </div>
+              <div class="risk-item warning">
+                <div style="min-width: 40px; font-size: 1.5rem;">🚗</div>
+                <div>
+                  <h4>Problemas logísticos de traslado</h4>
+                  <p><strong>Riesgo:</strong> Distancias, condiciones de caminos y tiempos de desplazamiento.</p>
+                  <p><strong>Mitigación:</strong> Planeación anticipada de rutas y estancias prolongadas en campo para optimizar tiempo efectivo.</p>
+                </div>
+              </div>
+              <div class="risk-item info">
+                <div style="min-width: 40px; font-size: 1.5rem;">📋</div>
+                <div>
+                  <h4>Retrasos administrativos</h4>
+                  <p><strong>Riesgo:</strong> Procesos institucionales, trámites o validaciones.</p>
+                  <p><strong>Mitigación:</strong> Seguimiento administrativo continuo y planeación por etapas con márgenes de flexibilidad.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== RESULTADOS ==================== -->
+  <section class="section" id="resultados">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Resultados e Impacto</span>
+        <h2 class="section-title">Resultados Esperados</h2>
+      </div>
+
+      <div class="results-list reveal">
+        <div class="result-item">
+          <div class="result-number">1</div>
+          <div class="result-content">
+            <h3>Modelo Analítico de Erosión Socioterritorial</h3>
+            <p>Aporte conceptual que integra dimensiones ambientales, económicas y socioculturales, contribuyendo al debate teórico en ecología política, estudios territoriales y reproducción social en contextos costeros.</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-number">2</div>
+          <div class="result-content">
+            <h3>Evidencia Empírica Comparativa</h3>
+            <p>Documentación de los efectos combinados de la erosión costera, el extractivismo petrolero y la crisis de la pesca artesanal en tres comunidades del litoral tabasqueño.</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-number">3</div>
+          <div class="result-content">
+            <h3>Diagnóstico Socio-Territorial Multiescalar</h3>
+            <p>Identificación de mecanismos de redistribución de riesgos ambientales, económicos y sociales mediante metodologías cualitativas y participativas.</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-number">4</div>
+          <div class="result-content">
+            <h3>Tipología de Estrategias de Adaptación</h3>
+            <p>Clasificación de estrategias de reproducción social y adaptación comunitaria considerando diferencias de género, edad y posición socioeconómica.</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-number">5</div>
+          <div class="result-content">
+            <h3>Insumos para Políticas Públicas</h3>
+            <p>Recomendaciones basadas en evidencia para programas sociales, políticas de adaptación costera y ordenamiento territorial en zonas afectadas por procesos extractivos.</p>
+          </div>
+        </div>
+        <div class="result-item">
+          <div class="result-number">6</div>
+          <div class="result-content">
+            <h3>Metodologías Participativas Replicables</h3>
+            <p>Fortalecimiento de la producción de conocimiento situado y la vinculación entre academia y comunidades en el análisis de problemáticas socioambientales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PRODUCTOS ==================== -->
+  <section class="section section-dark" id="productos">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Productos Entregables</span>
+        <h2 class="section-title" style="color: var(--white);">Productos Comprometidos</h2>
+      </div>
+
+      <div class="products-grid reveal">
+        <div class="product-card">
+          <div class="product-icon">📄</div>
+          <h3>Artículo Internacional</h3>
+          <p>Artículo sometido a revista indexada (Scopus/WoS) sobre análisis comparativo de erosión socioterritorial y extractivismo.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">📚</div>
+          <h3>Artículo Nacional</h3>
+          <p>Artículo en revista mexicana de acceso abierto sobre desarrollo teórico del concepto de erosión socioterritorial.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">🎓</div>
+          <h3>Capítulo de Tesis Doctoral</h3>
+          <p>Capítulo centrado en estrategias de reproducción social en contextos de vulnerabilidad costera.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">🎤</div>
+          <h3>Ponencias</h3>
+          <p>Presentaciones en congresos nacionales e internacionales para discusión y validación académica.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">🏫</div>
+          <h3>Talleres Comunitarios</h3>
+          <p>Tres talleres participativos (uno por comunidad) para devolución de resultados y validación social.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">📊</div>
+          <h3>Materiales de Divulgación</h3>
+          <p>Cartillas, infografías y mapas comunitarios en lenguaje claro e incluyente.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">📋</div>
+          <h3>Policy Brief</h3>
+          <p>Documento de síntesis dirigido a tomadores de decisiones con recomendaciones de política pública.</p>
+        </div>
+        <div class="product-card">
+          <div class="product-icon">💻</div>
+          <h3>Repositorio Digital</h3>
+          <p>Repositorio de acceso abierto con mapas, bases de datos no sensibles y productos del proyecto.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== BIBLIOGRAFÍA ==================== -->
+  <section class="section section-alt" id="bibliografia">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Referencias</span>
+        <h2 class="section-title">Bibliografía Seleccionada</h2>
+      </div>
+
+      <div class="tabs-container reveal">
+        <div class="tabs-nav">
+          <button class="tab-btn active" data-tab="bib-prioridad">Prioridad</button>
+          <button class="tab-btn" data-tab="bib-completa">Lista Completa</button>
+        </div>
+
+        <div class="tab-panel active" id="bib-prioridad">
+          <div class="content-block">
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 3px solid var(--accent);">Bebbington, A., &amp; Bury, J. (2013). <em>Subterranean struggles: New dynamics of mining, oil, and gas in Latin America.</em> University of Texas Press.</li>
+              <li style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 3px solid var(--accent);">Escobar, A. (2018). <em> Territories of difference: Place, movements, life, redes.</em> Duke University Press.</li>
+              <li style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 3px solid var(--accent);">Gudynas, E. (2015). <em>Extractivismos: Ecología, economía y política.</em> Editorial Jurídica de Bolivia.</li>
+              <li style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 3px solid var(--accent);">Martínez-Alier, J. (2020). <em>The environmentalism of the poor.</em> Edward Elgar Publishing.</li>
+              <li style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 3px solid var(--accent);">Svampa, M. (2019). <em>Las fronteras del neoextractivismo en América Latina.</em> CLACSO.</li>
+              <li style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 3px solid var(--accent);">Díaz-Rios, O., Hernández-Lemus, E., &amp; Ramírez-Sánchez, A. (2022). Adaptación costera y justicia socioambiental en México. <em>Sociedad y Territorio, 58</em>(1), 123–152.</li>
+              <li style="margin-bottom: 1rem; padding: 1rem; background: var(--gray-50); border-radius: 8px; border-left: 3px solid var(--accent);">Hernández de la Cruz, A. (2014). Estrategias familiares y vulnerabilidad socioambiental en comunidades pesqueras de Tabasco. <em>Intersticios Sociales, 21</em>, 67–93.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="bib-completa">
+          <div class="content-block">
+            <ul style="list-style: none; padding: 0; columns: 2; column-gap: 2rem;">
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Azuela, E., et al. (2017). Energy transitions and governance in Latin America. <em>Energy Policy, 115</em>, 612–619.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Bebbington, A., &amp; Bury, J. (2013). <em>Subterranean struggles.</em> University of Texas Press.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Bebbington, A., et al. (2018). Governing extractive industries. <em>Extractive Industries and Society, 5</em>(3), 421–429.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Castillo, D., García, M., &amp; Pérez, L. (2021). Impactos socioambientales de la extracción petrolera. <em>Revista Latinoamericana de Estudios Ambientales, 15</em>(2), 45–67.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Cottle, A., &amp; Assies, W. (2015). Political ecology and critical heritage studies. <em>Geoforum, 66</em>, 199–205.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Díaz-Rios, O., et al. (2022). Adaptación costera y justicia socioambiental en México. <em>Sociedad y Territorio, 58</em>(1), 123–152.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Escobar, A. (2016). <em>Territories of difference.</em> Duke University Press.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Escobar, A. (2018). <em>Thinking about difference.</em> Duke University Press.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Gama Campillo, A., et al. (2023). Cambio climático y erosión costera en Tabasco. <em>Geografía y Ambiente, 28</em>(1), 98–117.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">García-Cuéllar, C. (2004). Contaminación ambiental por actividad petrolera. <em>Estudios Marinos y Costeros, 12</em>(1), 59–74.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Giraldo, O. F., &amp; Martínez-Alier, J. (2020). Justice and equity in environmental governance. <em>Environmental Justice, 13</em>(5), 201–209.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Gudynas, E. (2015). <em>Extractivismos.</em> Editorial Jurídica de Bolivia.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Hernández de la Cruz, A. (2014). Estrategias familiares y vulnerabilidad socioambiental. <em>Intersticios Sociales, 21</em>, 67–93.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Hernández Santana, J., et al. (2008). Dinámicas de la línea de costa en Tabasco. <em>Revista de Geografía, 30</em>(1), 11–28.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Heynen, N. (2015). Urban political ecology I. Routledge.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Laville, J. L., et al. (2021). Participación y gobernanza para la gestión ambiental. <em>Ciencia &amp; Sociedad, 46</em>(3), 393–412.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Martínez-Alier, J. (2020). <em>The environmentalism of the poor.</em> Edward Elgar Publishing.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Mendoza, A., &amp; López, F. (2022). Análisis de interacciones entre pesquerías y actividades extractivas. <em>Ecología Aplicada, 19</em>(2), 101–116.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Núñez Gómez, P., et al. (2016). Evaluation of coastal vulnerability in Tabasco. <em>Journal of Coastal Research, 32</em>(4), 874–882.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Ramos, et al. (2022). Investigación-acción participativa para gestión ambiental. <em>Revista Latinoamericana de Investigación Social, 40</em>(2), 89–108.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Schifter, I., et al. (2015). Contaminación marina por hidrocarburos. <em>Boletín de Ciencias Marinas, 51</em>(3), 567–582.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Schlosberg, D., &amp; Collins, L. B. (2014). From environmental to climate justice. <em>WIREs Climate Change, 5</em>(3), 359–374.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Soto, M., et al. (2014). Impacto del petróleo en costas mexicanas. <em>Contaminación Ambiental, 20</em>(1), 45–56.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Svampa, M. (2019). <em>Extractivismo, políticas y territorios.</em> CLACSO.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Temper, L., et al. (2018). Mapping the frontiers of global environmental justice. <em>Global Environmental Change, 52</em>, 26–36.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Toledo, A., et al. (2021). Participatory governance in coastal resource management. <em>Coastal Management, 49</em>(2), 91–103.</li>
+              <li style="margin-bottom: 0.75rem; font-size: 0.88rem; break-inside: avoid;">Torres, J., et al. (2023). Gobernanza territorial y participación comunitaria. <em>Revista Mexicana de Ciencias Sociales, 11</em>(34), 221–242.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h4>Erosión Socioterritorial y Extractivismo Petrolero en la Costa de Tabasco</h4>
+        <p>Proyecto de investigación humanística autorizado por la Convocatoria Nacional de Investigación Científica y Humanística 2026. El Colegio de la Frontera Sur, Unidad Villahermosa, Tabasco.</p>
+      </div>
+      <div>
+        <h4>Secciones</h4>
+        <ul class="footer-links">
+          <li><a href="#proyecto">Sobre el Proyecto</a></li>
+          <li><a href="#equipo">Equipo de Investigación</a></li>
+          <li><a href="#comunidades">Comunidades de Estudio</a></li>
+          <li><a href="#galeria">Galería Fotográfica</a></li>
+          <li><a href="#metodologia">Metodología</a></li>
+          <li><a href="#resultados">Resultados</a></li>
+          <li><a href="#mapa">Mapa</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p><strong>Dr. Armando Hernández de la Cruz</strong><br>
+        ECOSUR, Unidad Villahermosa<br>
+        Departamento de Sociedad y Cultura<br>
+        Villahermosa, Tabasco, México</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ECOSUR — Convocatoria Nacional de Investigación Científica y Humanística 2026</span>
+      <span>Investigación Humanística</span>
+    </div>
+  </footer>
+
+  <!-- ==================== LIGHTBOX ==================== -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Cerrar">&times;</button>
+    <img src="" alt="">
+  </div>
+
+  <!-- ==================== BACK TO TOP ==================== -->
+  <button class="back-to-top" aria-label="Volver arriba">&#8593;</button>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
