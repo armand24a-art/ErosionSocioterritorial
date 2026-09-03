@@ -10,6 +10,53 @@
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>">
+
+  <style>
+    .loc-card { background: var(--white); border-radius: var(--radius-lg); box-shadow: var(--shadow-md); overflow: hidden; margin-bottom: 2.5rem; border: 1px solid var(--gray-200); transition: var(--transition); }
+    .loc-card:hover { box-shadow: var(--shadow-xl); transform: translateY(-2px); }
+    .loc-card-header { padding: 1.8rem 2rem; color: var(--white); display: flex; align-items: center; gap: 1rem; }
+    .loc-card-header .num { width: 44px; height: 44px; border-radius: 12px; background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.3rem; flex-shrink: 0; }
+    .loc-card-header h2 { font-size: 1.4rem; margin: 0; color: var(--white); }
+    .loc-card-header .subtitle { font-size: 0.85rem; opacity: 0.85; }
+    .loc-card-body { padding: 2rem; }
+    .loc-sub { font-size: 1.15rem; color: var(--primary); margin: 1.5rem 0 0.8rem; border-left: 4px solid var(--accent); padding-left: 0.8rem; }
+    .loc-text { margin: 0.5rem 0; text-align: justify; }
+    .loc-badge { display: inline-block; font-size: 0.75rem; padding: 2px 10px; border-radius: 20px; font-weight: 600; margin-right: 4px; }
+    .loc-badge.red { background: rgba(192,57,43,.1); color: var(--danger); }
+    .loc-badge.green { background: rgba(39,174,96,.1); color: var(--success); }
+    .loc-badge.blue { background: rgba(14,77,111,.1); color: var(--sea); }
+    .loc-badge.gold { background: rgba(200,164,21,.12); color: var(--accent-dark); }
+    .loc-tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .loc-tab-btn { padding: 0.5rem 1.2rem; border: 2px solid var(--gray-200); border-radius: 8px; background: var(--white); cursor: pointer; font-size: 0.85rem; font-weight: 600; color: var(--gray-600); transition: var(--transition); font-family: 'Source Sans 3', sans-serif; }
+    .loc-tab-btn:hover { border-color: var(--accent); color: var(--primary); }
+    .loc-tab-btn.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
+    .loc-tab-panel { display: none; }
+    .loc-tab-panel.active { display: block; }
+    .map-wrapper { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); margin: 2rem 0; border: 2px solid var(--gray-200); }
+    #map-loc { width: 100%; height: 500px; }
+    .map-controls { padding: 1rem 1.5rem; background: var(--gray-50); border-top: 1px solid var(--gray-200); display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
+    .map-controls label { font-size: 0.85rem; font-weight: 600; color: var(--gray-800); }
+    .map-controls select { padding: 0.4rem 0.8rem; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 0.85rem; background: var(--white); }
+    .photo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem; margin: 1.5rem 0; }
+    .photo-card { background: var(--white); border-radius: var(--radius); overflow: hidden; border: 1px solid var(--gray-200); box-shadow: var(--shadow-sm); transition: var(--transition); }
+    .photo-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .photo-placeholder { width: 100%; height: 200px; background: linear-gradient(135deg, var(--gray-100), var(--gray-200)); display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--gray-600); font-size: 0.85rem; text-align: center; padding: 1rem; }
+    .photo-placeholder .ph-icon { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.5; }
+    .photo-card .caption { padding: 1rem; font-size: 0.85rem; color: var(--gray-800); }
+    .cmp-table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+    .cmp-table { width: 100%; border-collapse: collapse; background: var(--white); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-md); }
+    .cmp-table th { background: var(--primary); color: var(--white); padding: 14px 12px; text-align: left; font-size: 0.88rem; font-family: 'Source Sans 3', sans-serif; font-weight: 600; }
+    .cmp-table td { padding: 11px 12px; border-bottom: 1px solid var(--gray-200); font-size: 0.85rem; vertical-align: top; }
+    .cmp-table tr:nth-child(even) { background: var(--gray-50); }
+    .cmp-table tr:hover { background: var(--sand-light); }
+    .cmp-table .cat td { background: #d4e6f1; font-weight: 700; color: var(--primary); font-size: 0.9rem; font-family: 'Playfair Display', serif; }
+    @media (max-width: 768px) {
+      .loc-card-header h2 { font-size: 1.15rem; }
+      .cmp-table { font-size: 0.78rem; }
+      .cmp-table th, .cmp-table td { padding: 8px 6px; }
+      #map-loc { height: 350px; }
+    }
+  </style>
 </head>
 <body>
 
@@ -31,7 +78,7 @@
         <li><a href="#galeria">Galería</a></li>
         <li><a href="#metodologia">Metodología</a></li>
         <li><a href="#resultados">Resultados</a></li>
-        <li><a href="#mapa">Mapa</a></li>
+        <li><a href="modelo.html">Modelo</a></li>
       </ul>
     </div>
   </nav>
@@ -428,6 +475,278 @@
     </div>
   </section>
 
+  <!-- ==================== CARACTERIZACIÓN DE LOCALIDADES ==================== -->
+  <section class="section section-alt" id="caracterizacion">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Caracterización</span>
+        <h2 class="section-title">Medio Sociodemográfico y Físico</h2>
+        <p class="section-desc">Descripción detallada de cada localidad: demografía, actividades productivas, infraestructura, medio físico y riesgos</p>
+      </div>
+
+      <!-- EL BOSQUE -->
+      <div class="loc-card reveal">
+        <div class="loc-card-header" style="background: linear-gradient(135deg, #c0392b, #e74c3c);">
+          <div class="num">1</div>
+          <div>
+            <h2>El Bosque, Municipio de Centla</h2>
+            <div class="subtitle">Costa del Golfo de México · 18°33' N, 92°38' O · 0 m.s.n.m.</div>
+          </div>
+        </div>
+        <div class="loc-card-body">
+          <div class="loc-tabs">
+            <button class="loc-tab-btn active" data-loc="bosque-socio">Medio Sociodemográfico</button>
+            <button class="loc-tab-btn" data-loc="bosque-fisico">Medio Físico</button>
+          </div>
+
+          <div class="loc-tab-panel active" id="bosque-socio">
+            <h3 class="loc-sub">Demografía</h3>
+            <p class="loc-text">El Bosque es una localidad costera fundada en la década de 1980 como pueblo de pescadores. Según el Censo 2020 del INEGI, contaba con <strong>172 habitantes</strong>. Se hizo conocida por ser el primer caso documentado de desplazamiento interno debido al cambio climático en México. En 2022, la comunidad solicitó reubicación por subida del nivel del mar (Risco, 2024).</p>
+
+            <p class="loc-text"><strong>PEA:</strong> Prácticamente toda la población se dedicaba a la pesca artesanal. La tasa de fecundidad y estructura poblacional se integran en las cifrellas del municipio de Centla, donde más del 38% tiene menos de 15 años (INEGI, 2021).</p>
+
+            <h3 class="loc-sub">Actividades Productivas</h3>
+            <p class="loc-text">
+              <span class="loc-badge red">Pesca</span> Actividad principal: camarón, jaiba y mojarra del Golfo. Severamente afectada por erosión costera.<br>
+              <span class="loc-badge gold">Petróleo</span> Presencia indirecta de la industria en la región costera.<br>
+              <span class="loc-badge green">Agricultura</span> Limitada por condición costera; coco, maíz y hortalizas en áreas aledañas.<br>
+              <span class="loc-badge blue">Turismo</span> Playa visitada en Semana Santa; programa "Turismo Verde" (Gobierno de Tabasco, 2022).
+            </p>
+
+            <h3 class="loc-sub">Infraestructura y Equipamiento</h3>
+            <p class="loc-text"><strong>Vialidades:</strong> Carretera estatal sin número, 10 km al norte de Frontera. <strong>Salud:</strong> Centro de salud básico. <strong>Agua potable:</strong> ~40% cobertura en zonas rurales. <strong>Drenaje:</strong> Precario (fosas sépticas). <strong>Energía:</strong> CFE con interrupciones frecuentes.</p>
+          </div>
+
+          <div class="loc-tab-panel" id="bosque-fisico">
+            <h3 class="loc-sub">Vegetación y Fauna</h3>
+            <p class="loc-text"><strong>Vegetación:</strong> Manglares, vegetación halófita y de playa. Reserva de la Biosfera Pantanos de Centla: 569 especies vegetales en 118 familias (Guerra Martínez et al., 2006).</p>
+            <p class="loc-text"><strong>Fauna:</strong> Garzas, cigüeñas, ibis, cocodrilos, tortugas de agua dulce, manatíes. 255+ especies de aves. Pejelagarto, símbolo endémico de Tabasco.</p>
+
+            <h3 class="loc-sub">Meteorología</h3>
+            <p class="loc-text"><strong>Clima:</strong> Cálido húmedo con abundantes lluvias en verano (Am). <strong>Temperatura media:</strong> 26–27°C. <strong>Precipitación:</strong> 2,750 mm anuales (máx. 335 mm en sept.). <strong>Humedad:</strong> ~83%. <strong>Vendavales:</strong> Nov–dic, hasta 30 km/h.</p>
+
+            <h3 class="loc-sub">Intemperismos Severos</h3>
+            <p class="loc-text"><strong>Ciclones/Huracanes:</strong> Alta vulnerabilidad costera. <strong>Inundaciones:</strong> Crítica (0 m.s.n.m.). <strong>Erosión costera:</strong> Severa — la comunidad fue reubicada. <strong>Sismicidad:</strong> Baja a moderada.</p>
+
+            <h3 class="loc-sub">Hidrología, Geología, Fisiografía y Edafología</h3>
+            <p class="loc-text"><strong>Hidrología:</strong> Cuenca del río Usumacinta; lagunas El Viento, Chichicastle, El Tocoal, Santa Anita, El Loncho, San Pedrito (16,117 ha). <strong>Geología:</strong> Cuaternario aluvial, rocas sedimentarias jóvenes. <strong>Fisiografía:</strong> Llanura Costera del Golfo, llanuras bajas con pantanos. <strong>Edafología:</strong> Vertisol, Gleysol, Phaeozem; suelos aluviales pantanosos.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- SÁNCHEZ MAGALLANES -->
+      <div class="loc-card reveal">
+        <div class="loc-card-header" style="background: linear-gradient(135deg, #1e8449, #27ae60);">
+          <div class="num">2</div>
+          <div>
+            <h2>Sánchez Magallanes, Municipio de Cárdenas</h2>
+            <div class="subtitle">Barra de Santa Ana · 18°17'44" N, 93°51'39" O · 10 m.s.n.m.</div>
+          </div>
+        </div>
+        <div class="loc-card-body">
+          <div class="loc-tabs">
+            <button class="loc-tab-btn active" data-loc="mag-socio">Medio Sociodemográfico</button>
+            <button class="loc-tab-btn" data-loc="mag-fisico">Medio Físico</button>
+          </div>
+
+          <div class="loc-tab-panel active" id="mag-socio">
+            <h3 class="loc-sub">Demografía</h3>
+            <p class="loc-text">Villa y Puerto Coronel Andrés Sánchez Magallanes, ubicada en la Barra de Santa Ana, península entre el Golfo de México y la Laguna del Carmen. Censo 2020: <strong>5,518 habitantes</strong> (urbana); <strong>9,787</strong> con el Ejido Pedro Sánchez Magallanes. Segunda zona urbana más poblada de Cárdenas (INEGI, 2021).</p>
+            <p class="loc-text"><strong>PEA:</strong> 2,538 personas; desocupación 0.7%. Escolaridad promedio: 4 años. Analfabetismo: ~7.8% (INAFED, 2005).</p>
+
+            <h3 class="loc-sub">Actividades Productivas</h3>
+            <p class="loc-text">
+              <span class="loc-badge red">Pesca</span> Mayor productor de ostiones de Tabasco; cangrejo y camarón.<br>
+              <span class="loc-badge gold">Petróleo</span> Influencia indirecta de yacimientos costeros; crecimiento en infraestructura.<br>
+              <span class="loc-badge green">Agricultura</span> Ganadería complementaria; coco, cacao y frutas tropicales.<br>
+              <span class="loc-badge blue">Turismo</span> ~8,000 visitantes en Semana Santa; playa Acapulquito, Parque Ensueño del Trópico.
+            </p>
+
+            <h3 class="loc-sub">Infraestructura y Equipamiento</h3>
+            <p class="loc-text"><strong>Vialidades:</strong> Carretera estatal a Cárdenas; puentes en la Barra. <strong>Salud:</strong> Centro de Salud + Clínica IMSS + consultorios privados. <strong>Agua potable:</strong> Mantos freáticos de la península. <strong>Drenaje:</strong> Deficiente, sin planta de tratamiento. <strong>Energía:</strong> CFE con cobertura amplia.</p>
+          </div>
+
+          <div class="loc-tab-panel" id="mag-fisico">
+            <h3 class="loc-sub">Vegetación y Fauna</h3>
+            <p class="loc-text"><strong>Vegetación:</strong> Selva media y alta perfoliata (original); manglares, vegetación de popal, marismas y pantanos en riberas.</p>
+            <p class="loc-text"><strong>Fauna:</strong> Reptiles (quelonios), aves, anfibios, mamíferos, invertebrados. Isla El Pajaral: diversidad de aves migratorias y residentes.</p>
+
+            <h3 class="loc-sub">Meteorología</h3>
+            <p class="loc-text"><strong>Clima:</strong> Cálido húmedo con abundantes lluvias en verano (Am). <strong>Temperatura media:</strong> 27°C (máx. 40°C en may.; mín. 10°C en ene.). <strong>Precipitación:</strong> 2,550 mm anuales. <strong>Humedad:</strong> 83% promedio.</p>
+
+            <h3 class="loc-sub">Intemperismos Severos</h3>
+            <p class="loc-text"><strong>Ciclones/Huracanes:</strong> Alta vulnerabilidad (península estrecha). <strong>Inundaciones:</strong> Alta (lagunas separadas del Golfo por metros de tierra). <strong>Erosión:</strong> Alta — franjas costeras estrechas. <strong>Sismicidad:</strong> Baja.</p>
+
+            <h3 class="loc-sub">Hidrología, Geología, Fisiografía y Edafología</h3>
+            <p class="loc-text"><strong>Hidrología:</strong> Ríos San Felipe, Naranjeño, Santana, Chicozapote; lagunas del Carmen y La Machona. <strong>Geología:</strong> Cuaternario, llanura aluvial costera con dunas y salinas. <strong>Fisiografía:</strong> Llanura Costera del Golfo, subprovincia de Llanuras y Lomeríos Bajos con Pantanos. <strong>Edafología:</strong> Vertisol, Gleysol, Phaeozem, Regosol; suelos aluviales con alta retención de humedad.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- EL PÉNJAMO -->
+      <div class="loc-card reveal">
+        <div class="loc-card-header" style="background: linear-gradient(135deg, #0e4d6f, #1a7a9e);">
+          <div class="num">3</div>
+          <div>
+            <h2>El Pénjamo, Municipio de Paraíso</h2>
+            <div class="subtitle">Chiltepec Sección Pénjamo · ~18°29' N, 93°09' O · 0–20 m.s.n.m.</div>
+          </div>
+        </div>
+        <div class="loc-card-body">
+          <div class="loc-tabs">
+            <button class="loc-tab-btn active" data-loc="pen-socio">Medio Sociodemográfico</button>
+            <button class="loc-tab-btn" data-loc="pen-fisico">Medio Físico</button>
+          </div>
+
+          <div class="loc-tab-panel active" id="pen-socio">
+            <h3 class="loc-sub">Demografía</h3>
+            <p class="loc-text">Chiltepec Sección Pénjamo, municipio de Paraíso. Fundado ~1823 en "Paso del Paraíso". Censo 2020: <strong>1,966 habitantes</strong> (957H, 1,009M). Municipio de Paraíso: <strong>96,741 habitantes</strong>. Tasa de fecundidad: 2.24 hijos/mujer (INEGI, 2021).</p>
+            <p class="loc-text"><strong>PEA municipal:</strong> 45,131 personas; desocupación 3.4%. La economía se basa en comercio, pesca e industria petrolera (Data México, s.f.).</p>
+
+            <h3 class="loc-sub">Actividades Productivas</h3>
+            <p class="loc-text">
+              <span class="loc-badge gold">Petróleo</span> Pilar económico: Puerto de Dos Bocas (principal del Golfo de México) y Refinería Olmeca.<br>
+              <span class="loc-badge red">Pesca</span> Principal productor de ostiones del estado; cangrejo y camarón.<br>
+              <span class="loc-badge green">Agricultura</span> 8,515 ha agrícolas: coco, cacao, mango, pimienta, cítricos. 6,896 ha ganadería.<br>
+              <span class="loc-badge blue">Turismo</span> Playas más visitadas del estado: Playa Paraíso, Dorada, Caracol, La Barra.
+            </p>
+
+            <h3 class="loc-sub">Infraestructura y Equipamiento</h3>
+            <p class="loc-text"><strong>Vialidades:</strong> Carretera Federal Villahermosa-Frontera; ferrocarril Coatzacoalcos-Mérida; Puerto Dos Bocas. <strong>Salud:</strong> Hospital + clínicas IMSS. <strong>Agua potable:</strong> Nueva planta potabilizadora 2026 (100 L/s, CEAS). <strong>Drenaje:</strong> En mejora (bypasses y nueva tubería). <strong>Energía:</strong> CFE; alta demanda industrial por PEMEX.</p>
+          </div>
+
+          <div class="loc-tab-panel" id="pen-fisico">
+            <h3 class="loc-sub">Vegetación y Fauna</h3>
+            <p class="loc-text"><strong>Vegetación:</strong> Selva alta perfoliada, manglares, vegetación de galería, sabana y playa. Corredor biológico de la laguna de Mecoacán.</p>
+            <p class="loc-text"><strong>Fauna:</strong> Ostión, cangrejo, peces, camarón, aves migratorias y residentes, cocodrilos, tortugas, manatíes.</p>
+
+            <h3 class="loc-sub">Meteorología</h3>
+            <p class="loc-text"><strong>Clima:</strong> Cálido húmedo con abundantes lluvias en verano (Am). <strong>Temperatura media:</strong> 26.2°C. <strong>Precipitación:</strong> 2,750 mm anuales; 136 días de lluvia. <strong>Humedad:</strong> ~83%.</p>
+
+            <h3 class="loc-sub">Intemperismos Severos</h3>
+            <p class="loc-text"><strong>Ciclones/Huracanes:</strong> Alta vulnerabilidad costera. <strong>Inundaciones:</strong> Alta (topografía plana, Río Seco propenso a desbordamientos). <strong>Contaminación:</strong> Alta por Refinería Dos Bocas — derrames en Río Seco (ADN40, 2026). <strong>Sismicidad:</strong> Baja.</p>
+
+            <h3 class="loc-sub">Hidrología, Geología, Fisiografía y Edafología</h3>
+            <p class="loc-text"><strong>Hidrología:</strong> Lagunas de Tupilco, Arrastradero, Las Flores, Tres Palmas, Puente de Ostión. Río Seco; sistema lagunar de Mecoacán. <strong>Geología:</strong> Cuaternario aluvial/sedimentario; relieve plano. <strong>Fisiografía:</strong> Llanura Costera del Golfo, 0–20 m.s.n.m. <strong>Edafología:</strong> Vertisol, Gleysol, Phaeozem; suelos aluviales fértiles con drenaje deficiente.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAPA DE LOCALIDADES -->
+      <div class="section-header reveal" style="margin-top:3rem;">
+        <span class="section-label">Ubicación</span>
+        <h2 class="section-title">Mapa de las Tres Localidades</h2>
+        <p class="section-desc">Mapa interactivo con dos capas base. Haga clic en los marcadores para más información.</p>
+      </div>
+      <div class="map-wrapper reveal">
+        <div id="map-loc"></div>
+        <div class="map-controls">
+          <label for="map-select">Capa base:</label>
+          <select id="map-select">
+            <option value="osm">OpenStreetMap (Calles)</option>
+            <option value="sat">Imagen Satelital (Esri)</option>
+            <option value="topo">Topográfico (Esri)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- FOTOGRAFÍAS -->
+      <div class="section-header reveal" style="margin-top:3rem;">
+        <span class="section-label">Registro Visual</span>
+        <h2 class="section-title">Espacio para Fotografías</h2>
+        <p class="section-desc">Espacios reservados para incorporar imágenes representativas de cada localidad</p>
+      </div>
+      <div class="photo-grid reveal">
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">📷</div>Playa El Bosque<br><small>img/bosque-playa.jpg</small></div>
+          <div class="caption"><strong>El Bosque</strong> — Costa con erosión costera y avance del mar.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">🐟</div>Pesca artesanal El Bosque<br><small>img/bosque-pesca.jpg</small></div>
+          <div class="caption"><strong>El Bosque</strong> — Pescadores artesanales y embarcaciones.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">🏘️</div>Puerto Sánchez Magallanes<br><small>img/mag-puerto.jpg</small></div>
+          <div class="caption"><strong>Sánchez Magallanes</strong> — Puerto pesquero en la Barra de Santa Ana.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">🏖️</div>Playa Acapulquito<br><small>img/mag-playa.jpg</small></div>
+          <div class="caption"><strong>Sánchez Magallanes</strong> — Playa Acapulquito, atractivo turístico principal.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">🦪</div>Producción de ostiones<br><small>img/mag-ostiones.jpg</small></div>
+          <div class="caption"><strong>Sánchez Magallanes</strong> — Bancos ostioneros, actividad económica principal.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">🛢️</div>Puerto de Dos Bocas<br><small>img/pen-dosbocas.jpg</small></div>
+          <div class="caption"><strong>El Pénjamo</strong> — Puerto de Dos Bocas, principal petrolero del Golfo.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">🌊</div>Playa Paraíso<br><small>img/pen-playa.jpg</small></div>
+          <div class="caption"><strong>El Pénjamo</strong> — Playa Paraíso, una de las más visitadas del estado.</div>
+        </div>
+        <div class="photo-card">
+          <div class="photo-placeholder"><div class="ph-icon">🏭</div>Refinería Olmeca<br><small>img/pen-refineria.jpg</small></div>
+          <div class="caption"><strong>El Pénjamo</strong> — Refinería Olmeca, infraestructura estratégica nacional.</div>
+        </div>
+      </div>
+
+      <!-- TABLA COMPARATIVA -->
+      <div class="section-header reveal" style="margin-top:3rem;">
+        <span class="section-label">Análisis Comparativo</span>
+        <h2 class="section-title">Comparación de las Tres Localidades</h2>
+        <p class="section-desc">Contraste de los principales aspectos sociodemográficos, económicos y físicos</p>
+      </div>
+      <div class="cmp-table-wrap reveal">
+        <table class="cmp-table">
+          <thead>
+            <tr>
+              <th style="width:22%">Aspecto</th>
+              <th style="width:26%">El Bosque, Centla</th>
+              <th style="width:26%">Sánchez Magallanes, Cárdenas</th>
+              <th style="width:26%">El Pénjamo, Paraíso</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="cat"><td colspan="4">DEMOGRAFÍA</td></tr>
+            <tr><td><strong>Población (2020)</strong></td><td>172 hab.</td><td>5,518 (urbana) / 9,787</td><td>1,966 (sección) / 96,741 (mun.)</td></tr>
+            <tr><td><strong>Desocupación</strong></td><td>No disponible</td><td>0.7%</td><td>3.4%</td></tr>
+            <tr><td><strong>Escolaridad</strong></td><td>No disponible</td><td>4 años promedio</td><td>Secundaria (30.2%)</td></tr>
+            <tr><td><strong>Analfabetismo</strong></td><td>No disponible</td><td>~7.8%</td><td>3.27%</td></tr>
+            <tr class="cat"><td colspan="4">ACTIVIDADES PRODUCTIVAS</td></tr>
+            <tr><td><strong>Principal</strong></td><td>Pesca artesanal</td><td>Pesca del ostión</td><td>Petróleo (PEMEX)</td></tr>
+            <tr><td><strong>Petróleo</strong></td><td>Indirecta regional</td><td>Indirecta costera</td><td>Directa: Dos Bocas, Olmeca</td></tr>
+            <tr><td><strong>Pesca</strong></td><td>Cam., jaiba, mojarra</td><td>Líder estatal en ostiones</td><td>Ostiones de calidad</td></tr>
+            <tr><td><strong>Agricultura</strong></td><td>Limitada</td><td>Complementaria</td><td>8,515 ha agrícolas</td></tr>
+            <tr><td><strong>Turismo</strong></td><td>Emergente</td><td>~8,000 visitantes/Sem. Santa</td><td>Las más visitadas del estado</td></tr>
+            <tr class="cat"><td colspan="4">INFRAESTRUCTURA</td></tr>
+            <tr><td><strong>Vialidades</strong></td><td>Carretera estatal limitada</td><td>Carretera + puentes</td><td>Federal + ferrocarril + puerto</td></tr>
+            <tr><td><strong>Salud</strong></td><td>Centro básico</td><td>Centro + IMSS</td><td>Hospital + IMSS</td></tr>
+            <tr><td><strong>Agua potable</strong></td><td>~40% cobertura</td><td>Mantos freáticos</td><td>Nueva planta 100 L/s</td></tr>
+            <tr><td><strong>Drenaje</strong></td><td>Precario</td><td>Deficiente</td><td>En mejora</td></tr>
+            <tr><td><strong>Energía</strong></td><td>CFE intermitente</td><td>CFE amplia</td><td>CFE + demanda industrial</td></tr>
+            <tr class="cat"><td colspan="4">MEDIO FÍSICO</td></tr>
+            <tr><td><strong>Altitud</strong></td><td>0 m.s.n.m.</td><td>10 m.s.n.m.</td><td>0–20 m.s.n.m.</td></tr>
+            <tr><td><strong>Clima</strong></td><td>Am</td><td>Am</td><td>Am</td></tr>
+            <tr><td><strong>Temp. media</strong></td><td>26–27°C</td><td>27°C</td><td>26.2°C</td></tr>
+            <tr><td><strong>Precipitación</strong></td><td>2,750 mm</td><td>2,550 mm</td><td>2,750 mm</td></tr>
+            <tr><td><strong>Humedad</strong></td><td>~83%</td><td>83%</td><td>~83%</td></tr>
+            <tr class="cat"><td colspan="4">MEDIO AMBIENTAL</td></tr>
+            <tr><td><strong>Vegetación</strong></td><td>Manglares, halófita</td><td>Selva, manglares, popal</td><td>Selva, manglares, sabana</td></tr>
+            <tr><td><strong>Fauna</strong></td><td>Aves, cocodrilos, manatíes</td><td>Quelonios, aves, Pajaral</td><td>Ostión, cangrejo, migratorias</td></tr>
+            <tr><td><strong>Hidrología</strong></td><td>Usumacinta; 6 lagunas</td><td>San Felipe; lag. Carmen</td><td>Tupilco, Mecoacán; R. Seco</td></tr>
+            <tr><td><strong>Suelos</strong></td><td>Vertisol, Gleysol</td><td>Vertisol, Gleysol, Regosol</td><td>Vertisol, Gleysol</td></tr>
+            <tr class="cat"><td colspan="4">RIESGOS</td></tr>
+            <tr><td><strong>Inundaciones</strong></td><td>Crítica (0 m)</td><td>Alta (península)</td><td>Alta (planicie)</td></tr>
+            <tr><td><strong>Erosión</strong></td><td>Severa (reubicación)</td><td>Alta (franja estrecha)</td><td>Moderada</td></tr>
+            <tr><td><strong>Contaminación</strong></td><td>Baja</td><td>Moderada (petróleo)</td><td>Alta (Refinería/Río Seco)</td></tr>
+            <tr><td><strong>Ciclones</strong></td><td>Alta vulnerabilidad</td><td>Alta vulnerabilidad</td><td>Alta vulnerabilidad</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
   <!-- ==================== GALERÍA ==================== -->
   <section class="section section-alt" id="galeria">
     <div class="container">
@@ -577,56 +896,6 @@
     </div>
   </section>
 
-  <!-- ==================== MAPA ==================== -->
-  <section class="section" id="mapa">
-    <div class="container">
-      <div class="section-header reveal">
-        <span class="section-label">Ubicación</span>
-        <h2 class="section-title">Mapa de Localización</h2>
-        <p class="section-desc">Zonas de estudio en la costa del estado de Tabasco, Golfo de México</p>
-      </div>
-
-      <div class="map-container reveal">
-        <div id="map"></div>
-        <div class="map-legend">
-          <div class="legend-item">
-            <span class="legend-dot green"></span>
-            El Bosque, Centla
-          </div>
-          <div class="legend-item">
-            <span class="legend-dot blue"></span>
-            Sánchez Magallanes, Cárdenas
-          </div>
-          <div class="legend-item">
-            <span class="legend-dot gold"></span>
-            El Pénjamo, Paraíso
-          </div>
-        </div>
-      </div>
-
-      <!-- Instrucciones para personalizar el mapa -->
-      <div class="instructions-box reveal" style="margin-top: 2rem;">
-        <h3>🗺️ Personalizar el mapa</h3>
-        <p>El mapa usa <a href="https://leafletjs.com/" target="_blank">Leaflet.js</a> con tiles de CARTO (gratuito, sin API key). Para modificar las coordenadas:</p>
-        <ol>
-          <li>Busca las coordenadas exactas de cada comunidad en Google Maps (clic derecho → "¿Qué hay aquí?").</li>
-          <li>Edita el archivo <code>js/main.js</code> y busca el array <code>communities</code>.</li>
-          <li>Actualiza las coordenadas <code>[lat, lng]</code> de cada punto.</li>
-          <li>Para agregar más puntos, duplica un objeto dentro del array.</li>
-        </ol>
-        <div class="code-block">const communities = [
-  {
-    name: 'El Bosque, Centla',
-    coords: [18.4311, -93.0833],  // ← Cambiar coordenadas aquí
-    color: '#27ae60',
-    description: 'Descripción de la comunidad'
-  },
-  // ... agregar más comunidades
-];</div>
-      </div>
-    </div>
-  </section>
-
   <!-- ==================== METODOLOGÍA ==================== -->
   <section class="section section-alt" id="metodologia">
     <div class="container">
@@ -767,6 +1036,12 @@
             </div>
           </div>
         </div>
+      </div>
+
+      <div class="reveal" style="text-align:center; margin-top:2.5rem;">
+        <a href="modelo.html" class="btn btn-primary">
+          Ver el modelo de Erosión Socioterritorial →
+        </a>
       </div>
     </div>
   </section>
@@ -960,7 +1235,7 @@
           <li><a href="#galeria">Galería Fotográfica</a></li>
           <li><a href="#metodologia">Metodología</a></li>
           <li><a href="#resultados">Resultados</a></li>
-          <li><a href="#mapa">Mapa</a></li>
+          <li><a href="modelo.html">Modelo de Variables</a></li>
         </ul>
       </div>
       <div>

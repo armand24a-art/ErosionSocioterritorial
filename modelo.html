@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Modelo de Erosión Socioterritorial · Procedimiento de obtención de variables | ECOSUR</title>
+  <meta name="description" content="Procedimiento metodológico para la obtención de las variables del modelo de Erosión Socioterritorial: Extractivismo petrolero, Erosión costera y Declive pesquero. Construcción de cada variable por categorías.">
+  <meta name="author" content="Dr. Armando Hernández de la Cruz - ECOSUR">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Estilos propios de esta página (responsivos) -->
+  <style>
+    .mod-hero {
+      padding-top: 70px;
+      min-height: auto;
+      padding-bottom: 4rem;
+    }
+    .mod-hero .hero-content { max-width: 1100px; }
+    .mod-breadcrumb {
+      display: inline-block; margin-bottom: 1.2rem;
+      font-size: 0.85rem; color: rgba(255,255,255,0.75);
+      letter-spacing: 1px;
+    }
+    .mod-breadcrumb a { color: var(--accent); text-decoration: none; }
+    .mod-breadcrumb a:hover { text-decoration: underline; }
+    .mod-model-eq {
+      margin-top: 2.2rem; padding: 1.4rem 1.8rem;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(200,164,21,0.35);
+      border-radius: var(--radius);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(0.9rem, 2vw, 1.25rem);
+      color: var(--white);
+      text-align: center;
+      line-height: 1.7;
+    }
+    .mod-model-eq strong { color: var(--accent); }
+
+    /* Página de contenidos */
+    .mod-toc {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr));
+      gap: 1.2rem; margin-top: 2rem;
+    }
+    .mod-toc a {
+      text-decoration: none; color: inherit;
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius); padding: 1.2rem 1.4rem;
+      box-shadow: var(--shadow-sm); transition: var(--transition);
+      display: flex; align-items: center; gap: 0.9rem;
+    }
+    .mod-toc a:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--accent); }
+    .mod-toc .ico {
+      width: 44px; height: 44px; border-radius: 10px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: 1.2rem;
+    }
+    .mod-toc .ico.c1 { background: rgba(192,57,43,.12); }
+    .mod-toc .ico.c2 { background: rgba(14,77,111,.12); }
+    .mod-toc .ico.c3 { background: rgba(39,174,96,.12); }
+    .mod-toc .ico.c4 { background: rgba(200,164,21,.16); }
+    .mod-toc h4 { font-size: 1rem; margin-bottom: 0.2rem; color: var(--primary); }
+    .mod-toc p { font-size: 0.8rem; color: var(--gray-600); margin: 0; }
+
+    /* Flujo metodológico en 3 niveles */
+    .mod-flow {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      margin: 2.5rem 0;
+    }
+    .mod-flow-card {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); padding: 2rem; box-shadow: var(--shadow-sm);
+      position: relative; transition: var(--transition);
+    }
+    .mod-flow-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-3px); }
+    .mod-flow-num {
+      width: 44px; height: 44px; border-radius: 12px; background: var(--primary);
+      color: var(--white); display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif; font-weight: 700; font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+    .mod-flow-card h3 { font-size: 1.15rem; margin-bottom: 0.6rem; color: var(--primary); }
+    .mod-flow-card p { font-size: 0.92rem; color: var(--gray-600); margin-bottom: 1rem; }
+    .mod-flow-card h5 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-dark); margin-bottom: 0.5rem; }
+    .mod-flow-card ul { margin: 0; padding-left: 1.1rem; }
+    .mod-flow-card li { font-size: 0.85rem; color: var(--gray-800); margin-bottom: 0.4rem; }
+
+    /* Pasos generales de normalización */
+    .mod-steps { margin: 2rem 0; counter-reset: st; }
+    .mod-step {
+      display: flex; gap: 1.1rem; padding: 1.1rem 1.4rem; margin-bottom: 0.9rem;
+      background: var(--white); border: 1px solid var(--gray-200); border-left: 4px solid var(--accent);
+      border-radius: 10px; align-items: flex-start;
+    }
+    .mod-step-n {
+      counter-increment: st; flex-shrink: 0;
+      width: 30px; height: 30px; border-radius: 50%; background: var(--sea); color: var(--white);
+      display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem;
+    }
+    .mod-step-n::before { content: counter(st); }
+    .mod-step p { margin: 0; font-size: 0.95rem; line-height: 1.6; }
+
+    /* Tarjetas de variables */
+    .mod-var-anchor { scroll-margin-top: 90px; }
+    .mod-var {
+      background: var(--white); border: 1px solid var(--gray-200);
+      border-radius: var(--radius-lg); box-shadow: var(--shadow-md);
+      overflow: hidden; margin-bottom: 3.5rem;
+    }
+    .mod-var-head {
+      padding: 2.2rem 2.5rem; color: var(--white);
+      background: linear-gradient(135deg, var(--primary), var(--sea));
+      position: relative;
+    }
+    .mod-var-head .tag {
+      display: inline-block; font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase;
+      background: rgba(255,255,255,0.14); padding: 4px 12px; border-radius: 50px; margin-bottom: 0.9rem;
+    }
+    .mod-var-head h2 { color: var(--white); font-size: clamp(1.5rem,3vw,2.2rem); margin-bottom: 0.6rem; }
+    .mod-var-head h3 { color: var(--accent); font-size: 1.05rem; font-weight: 600; }
+    .mod-var-body { padding: 2.2rem 2.5rem; }
+    .mod-var-body .lead { font-size: 1.02rem; color: var(--gray-800); margin-bottom: 1.4rem; }
+
+    .mod-formula {
+      background: var(--sand-light); border: 1px solid var(--sand);
+      border-left: 4px solid var(--accent); border-radius: 10px;
+      padding: 1.1rem 1.4rem; margin: 1.2rem 0 1.8rem;
+      font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary);
+      overflow-x: auto; white-space: normal; line-height: 1.7;
+    }
+    .mod-formula .fl { color: var(--accent-dark); font-weight: 700; }
+
+    .mod-why {
+      background: var(--gray-100); border-radius: 10px; padding: 1.2rem 1.4rem; margin-bottom: 1.8rem;
+    }
+    .mod-why h5 { font-size: 0.78rem; text-transform: uppercase; letter-spacing: 1px; color: var(--accent-dark); margin-bottom: 0.5rem; }
+    .mod-why p { margin: 0; font-size: 0.95rem; }
+
+    /* Subcategorías / acordeón */
+    .mod-sub { border: 1px solid var(--gray-200); border-radius: 12px; margin-bottom: 1rem; overflow: hidden; background: var(--white); }
+    .mod-sub-head {
+      width: 100%; text-align: left; background: none; border: none; cursor: pointer;
+      padding: 1.3rem 1.5rem; display: flex; align-items: center; gap: 1rem;
+      font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 600; color: var(--primary);
+    }
+    .mod-sub-head .arrow { margin-left: auto; transition: transform .3s ease; color: var(--accent-dark); font-size: 1.2rem; flex-shrink: 0; }
+    .mod-sub.open .mod-sub-head .arrow { transform: rotate(90deg); }
+    .mod-sub-head:hover { background: var(--gray-50); }
+    .mod-sub-mide {
+      display: block; font-family: 'Source Sans 3', sans-serif; font-weight: 500;
+      font-size: 0.8rem; color: var(--sea); margin-top: 0.2rem;
+    }
+    .mod-sub-body { display: none; padding: 0 1.5rem 1.5rem; }
+    .mod-sub.open .mod-sub-body { display: block; }
+
+    .mod-scroll { overflow-x: auto; border-radius: 10px; border: 1px solid var(--gray-200); }
+    .mod-ind {
+      width: 100%; border-collapse: collapse; min-width: 720px; background: var(--white);
+      font-size: 0.85rem;
+    }
+    .mod-ind th, .mod-ind td { padding: 0.8rem 1rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--gray-200); }
+    .mod-ind thead th {
+      background: var(--primary); color: var(--white); font-size: 0.75rem;
+      text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+    }
+    .mod-ind tbody tr:nth-child(even) { background: var(--gray-50); }
+    .mod-ind .in { font-weight: 600; color: var(--primary); width: 34%; }
+    .mod-ind .um { color: var(--accent-dark); font-weight: 600; white-space: nowrap; width: 16%; }
+    .mod-ind .me { color: var(--gray-800); line-height: 1.55; }
+    .mod-ind .me code { background: var(--gray-100); padding: 1px 6px; border-radius: 5px; font-size: 0.78rem; color: var(--sea); }
+
+    /* Integración */
+    .mod-integration {
+      background: linear-gradient(135deg, var(--primary), var(--sea));
+      color: var(--white);
+    }
+    .mod-integration .section-label { color: var(--accent); }
+    .mod-integration p { color: rgba(255,255,255,0.85); }
+    .mod-integration .mod-model-eq { margin-top: 0; }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .mod-flow { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 768px) {
+      .mod-var-head, .mod-var-body { padding: 1.5rem 1.3rem; }
+      .mod-ind { min-width: 640px; font-size: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <nav class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="navbar-brand">
+        <div class="brand-icon">🌊</div>
+        <span class="brand-text">Erosión Socioterritorial</span>
+      </a>
+      <button class="hamburger" aria-label="Menú">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links">
+        <li><a href="#introduccion">Introducción</a></li>
+        <li><a href="#justificacion">Justificación</a></li>
+        <li><a href="#procedimiento">Procedimiento</a></li>
+        <li><a href="#extractivismo">Extractivismo</a></li>
+        <li><a href="#erosion-costera">Erosión Costera</a></li>
+        <li><a href="#declive-pesquero">Declive Pesquero</a></li>
+        <li><a href="#socioterritorial">Modelo Final</a></li>
+        <li><a href="index.html">Volver al sitio</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ==================== HERO ==================== -->
+  <header class="hero mod-hero" id="inicio">
+    <div class="hero-particles"></div>
+    <div class="hero-content">
+      <div class="mod-breadcrumb">
+        <a href="index.html">Inicio</a> · Procedimiento de obtención de variables del modelo
+      </div>
+      <div class="hero-badge"><span>📊</span> Modelo de Erosión Socioterritorial</div>
+      <h1 class="hero-title">
+        Procedimiento para la obtención de las <span class="highlight">variables</span> del modelo
+      </h1>
+      <p class="hero-subtitle">
+        Construcción de cada variable por categorías: instrumentación de indicadores, métodos y fórmulas de agregación para las comunidades pesqueras de la costa de Tabasco.
+      </p>
+      <div class="mod-model-eq">
+        Erosión Socioterritorial &nbsp;= &nbsp;<strong>Extractivismo</strong> &nbsp;+&nbsp; <strong>Erosión costera</strong> &nbsp;+&nbsp; <strong>Declive pesquero</strong>
+      </div>
+      <div class="hero-buttons">
+        <a href="#procedimiento" class="btn btn-primary">Ver el procedimiento</a>
+        <a href="#extractivismo" class="btn btn-outline">Variables por categoría</a>
+        <a href="https://ee.kobotoolbox.org/x/BoY7AoSv" class="btn btn-outline" target="_blank" rel="noopener">📋 Abrir la encuesta</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== INTRODUCCIÓN ==================== -->
+  <section class="section section-alt mod-var-anchor" id="introduccion">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Introducción</span>
+        <h2 class="section-title">Un modelo para medir la erosión del territorio</h2>
+        <p class="section-desc">De la erosión física del litoral a la erosión de las bases materiales y simbólicas de la vida social</p>
+      </div>
+
+      <div class="content-block reveal">
+        <p>La costa del estado de Tabasco enfrenta un proceso acelerado de transformación territorial en el que convergen tres fenómenos estrechamente relacionados: la <strong>erosión costera</strong>, que reduce físicamente el territorio litoral; el <strong>extractivismo petrolero offshore</strong>, que reconfigura el uso del mar y del espacio productivo; y el <strong>declive de la pesca artesanal</strong>, que erosiona la principal economía de reproducción social de las comunidades.</p>
+        <p>El presente documento describe el <strong>procedimiento para la obtención de las variables del modelo</strong> de Erosión Socioterritorial. Cada variable se construye a partir de categorías, subcategorías e indicadores medibles, de modo que el fenómeno —complejo y multidimensional— pueda traducirse en un índice normalizado (0 a 1) que permita comparar comunidades y fundamentar decisiones de política territorial.</p>
+        <p>El modelo parte de una fórmula sintética que integra las tres grandes dimensiones del proceso:</p>
+      </div>
+
+      <div class="mod-model-eq reveal" style="background:var(--sand-light); border-color:var(--sand); color:var(--primary);">
+        Erosión Socioterritorial &nbsp;= &nbsp;<strong style="color:var(--accent-dark)">Extractivismo</strong> &nbsp;+&nbsp; <strong style="color:var(--accent-dark)">Erosión costera</strong> &nbsp;+&nbsp; <strong style="color:var(--accent-dark)">Declive pesquero</strong>
+      </div>
+
+      <div class="mod-toc reveal">
+        <a href="#extractivismo">
+          <div class="ico c1">🛢️</div>
+          <div><h4>Extractivismo Petrolero Offshore</h4><p>Intensidad de infraestructura, dinámicas laborales y conflictividad.</p></div>
+        </a>
+        <a href="#erosion-costera">
+          <div class="ico c2">🌊</div>
+          <div><h4>Erosión Costera</h4><p>Retroceso del litoral, afectaciones a la vida cotidiana y respuestas.</p></div>
+        </a>
+        <a href="#declive-pesquero">
+          <div class="ico c3">🐟</div>
+          <div><h4>Declive de la Pesca Artesanal</h4><p>Transformaciones productivas, tejido socioeconómico y organización.</p></div>
+        </a>
+        <a href="#socioterritorial">
+          <div class="ico c4">📊</div>
+          <div><h4>Erosión Socioterritorial</h4><p>Variable integradora de reproducción social, organización y desigualdades.</p></div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== JUSTIFICACIÓN ==================== -->
+  <section class="section mod-var-anchor" id="justificacion">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Justificación</span>
+        <h2 class="section-title">¿Por qué un procedimiento formal de medición?</h2>
+      </div>
+
+      <div class="info-grid reveal">
+        <div class="info-card">
+          <div class="info-card-icon blue">🧭</div>
+          <h3>Superar el análisis fragmentado</h3>
+          <p>La erosión litoral, el extractivismo energético y la crisis pesquera suelen estudiarse por separado. Este procedimiento integra las tres dimensiones en un solo modelo, capturando sus interacciones y efectos acumulativos sobre la vida de las comunidades.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon gold">⚖️</div>
+          <h3>Medir costos y beneficios distributivos</h3>
+          <p>Al construir indicadores normalizados, el modelo permite visibilizar cómo los costos ambientales y los beneficios del extractivismo se distribuyen de manera desigual entre grupos sociales, edades y géneros.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon green">📈</div>
+          <h3>Comparabilidad entre comunidades</h3>
+          <p>La normalización (0–1) de cada indicador hace comparable a las tres comunidades estudiadas, permitiendo identificar cuáles experimentan mayor erosión socioterritorial y en qué dimensiones.</p>
+        </div>
+        <div class="info-card">
+          <div class="info-card-icon red">📍</div>
+          <h3>Evidencia para la decisión pública</h3>
+          <p>El resultado aporta insumos estratégicos para políticas de adaptación costera, ordenamiento territorial, fortalecimiento de economías locales y justicia socioambiental.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== PROCEDIMIENTO GENERAL ==================== -->
+  <section class="section section-alt mod-var-anchor" id="procedimiento">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Procedimiento general</span>
+        <h2 class="section-title">Tres niveles de construcción</h2>
+        <p class="section-desc">El modelo se agrega en tres niveles: de la categoría a la subcategoría y de ahí al indicador medible</p>
+      </div>
+
+      <div class="mod-flow reveal">
+        <div class="mod-flow-card">
+          <div class="mod-flow-num">1</div>
+          <h3>Categorías del modelo</h3>
+          <p>Grandes dimensiones que estructuran el fenómeno de erosión socioterritorial.</p>
+          <h5>En el modelo</h5>
+          <ul>
+            <li>Extractivismo Petrolero Offshore</li>
+            <li>Erosión Costera</li>
+            <li>Declive de la Pesca Artesanal</li>
+          </ul>
+        </div>
+        <div class="mod-flow-card">
+          <div class="mod-flow-num">2</div>
+          <h3>Subcategorías</h3>
+          <p>Tres ejes analíticos por cada categoría que capturan procesos complementarios.</p>
+          <h5>Estructura típica</h5>
+          <ul>
+            <li>Intensidad / dimensión física</li>
+            <li>Dinámicas socioeconómicas</li>
+            <li>Conflictividad y respuestas</li>
+          </ul>
+        </div>
+        <div class="mod-flow-card">
+          <div class="mod-flow-num">3</div>
+          <h3>Indicadores</h3>
+          <p>Cada subcategoría se desglosa en indicadores con unidad de medida, método y fuente.</p>
+          <h5>Para cada indicador</h5>
+          <ul>
+            <li>Qué mide</li>
+            <li>Unidad de medida</li>
+            <li>Método de obtención</li>
+            <li>Aporte a la fórmula</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="section-header reveal" style="margin:3rem 0 2rem;">
+        <h2 class="section-title" style="font-size:1.6rem;">Pasos transversales de agregación</h2>
+      </div>
+
+      <div class="mod-steps reveal">
+        <div class="mod-step"><span class="mod-step-n"></span><p><strong>Recolección e instrumentación.</strong> Cada indicador se obtiene con el método indicado: encuesta, entrevista, fotointerpretación de imágenes satelitales o procesamiento SIG en QGIS.</p></div>
+        <div class="mod-step"><span class="mod-step-n"></span><p><strong>Cálculo del valor bruto.</strong> Se obtiene el valor de cada indicador por comunidad a partir de los datos levantados en campo y las fuentes secundarias (SENER, ASEA, CONAPESCA, hemerotecas).</p></div>
+        <div class="mod-step"><span class="mod-step-n"></span><p><strong>Codificación y normalización.</strong> Las variables categóricas y escalas Likert se codifican a 0–1; los valores continuos se normalizan (método mín–máx o relativo a la máxima observada entre comunidades).</p></div>
+        <div class="mod-step"><span class="mod-step-n"></span><p><strong>Ponderación y agregación.</strong> Cada componente normalizado se pondera según su importancia relativa y se suman conforme a la fórmula de su categoría para obtener el valor de la variable.</p></div>
+        <div class="mod-step"><span class="mod-step-n"></span><p><strong>Integración del modelo.</strong> Las tres variables se integran en el índice de Erosión Socioterritorial mediante la suma ponderada de sus componentes.</p></div>
+      </div>
+
+      <div class="content-block reveal" style="margin-top:2rem;">
+        <p>El resultado final es un <strong>índice normalizado (0–1) por comunidad</strong> que sintetiza las dimensiones física, productiva y social de la erosión. A continuación se detalla el desarrollo de la obtención de variables, agrupado por cada categoría.</p>
+      </div>
+
+      <div class="mod-why reveal" style="margin-top:1.5rem;">
+        <h5>Encuesta para la obtención de indicadores</h5>
+        <p>La información de los indicadores marcados como «Encuesta» (Preguntas 12, 13, 15, 16 y demás referencias internas) se levanta mediante el instrumento digital disponible en línea. Las preguntas correspondientes se encuentran integradas en el formulario de captura de campo:</p>
+        <p style="margin-top:0.8rem;">
+          <a href="https://ee.kobotoolbox.org/x/BoY7AoSv" class="btn btn-primary" target="_blank" rel="noopener">📋 Abrir el formulario de la encuesta</a>
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VARIABLE 1: EXTRACTIVISMO ==================== -->
+  <section class="section mod-var-anchor" id="extractivismo">
+    <div class="container">
+      <div class="mod-var reveal">
+        <div class="mod-var-head">
+          <span class="tag">Variable 1 del modelo</span>
+          <h2>Extractivismo Petrolero Offshore</h2>
+          <h3>Intensidad de infraestructura · Dinámicas laborales · Conflictividad</h3>
+        </div>
+        <div class="mod-var-body">
+          <p class="lead">Esta variable mide el grado de ocupación del espacio por la industria petrolera y su impacto en el tejido económico y social de las localidades. Agrupa tres subcategorías —intensidad de infraestructura, dinámicas laborales y de derrama económica, y conflictividad territorial— construidas a partir de fotointerpretación, registros oficiales y encuesta.</p>
+
+          <div class="mod-why">
+            <h5>Justificación</h5>
+            <p>La industria petrolera offshore reconfigura simultáneamente el espacio físico (plataformas, ductos, muelles), el mercado laboral y las relaciones de las comunidades con su territorio (exclusión de zonas, derrames, conflictos). Medir estas dimensiones permite evaluar el peso del extractivismo en la erosión socioterritorial.</p>
+          </div>
+
+          <div class="mod-formula">
+            <span class="fl">Extractivismo</span> = (Densidad × 0.25) + (Proximidad_inversa × 0.20) + (Exclusión × 0.20) + (Derrames × 0.20) + (Empleo_local × 0.15)
+          </div>
+
+          <!-- Subcategoría 1.1 -->
+          <div class="mod-sub open">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 1 · Intensidad de Infraestructura Extractiva
+                <span class="mod-sub-mide">Grado de ocupación del espacio por la industria petrolera</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">1.1 Densidad de infraestructura petrolera (plataformas, ductos, muelles, pozos) en un radio de 20 km</td>
+                      <td>Grado de ocupación del espacio por la industria</td>
+                      <td class="um">N/km²</td>
+                      <td class="me">1. Georreferenciar instalaciones vía fotointerpretación y registros oficiales (SENER, ASEA). 2. Crear buffer de 20 km alrededor del centro de la localidad. 3. Contar el número de instalaciones dentro del buffer. 4. Calcular densidad: <code>N / (π × 20²)</code>.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.2 Proximidad de la infraestructura a zonas de pesca y asentamientos humanos</td>
+                      <td>Exposición de la población a la industria</td>
+                      <td class="um">km</td>
+                      <td class="me">1. Identificar el centroide del poblado y las zonas de pesca (cartografía social). 2. Calcular distancia euclidiana en QGIS desde el centroide a la instalación más cercana. 3. Calcular distancia promedio a todas las instalaciones.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.3 Zonas de exclusión o restricción por actividad petrolera</td>
+                      <td>Superficie vedada para la comunidad</td>
+                      <td class="um">% del área de influencia</td>
+                      <td class="me">1. Identificar en cartografía social participativa las zonas marcadas como «restringidas» o «vedadas». 2. Digitalizar polígonos en QGIS. 3. Calcular el área y dividir entre el área total del buffer de 20 km.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.4 Frecuencia y proximidad de eventos de derrame</td>
+                      <td>Pasivo ambiental acumulado</td>
+                      <td class="um">Número de eventos / km²</td>
+                      <td class="me">1. Georreferenciar eventos reportados en entrevistas y hemerotecas. 2. Contar eventos en el buffer de 20 km en los últimos 25 años. 3. Calcular densidad: <code>N / (π × 20²)</code>.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subcategoría 1.2 -->
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 2 · Dinámicas Laborales y de Derrama Económica
+                <span class="mod-sub-mide">Impacto de la industria en el tejido económico local</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">2.1 Tasa de empleo local en la industria petrolera y subcontratas</td>
+                      <td>Inserción laboral en la industria</td>
+                      <td class="um">% de la PEA</td>
+                      <td class="me">1. Encuesta: Preguntas 12 y 13. 2. Calcular: <code>(N_empleados_en_petrolera / Total_PEA_local) × 100</code>. 3. Desagregar por género y edad (jóvenes/adultos).</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.2 Percepción de derrama económica sobre el comercio y servicios locales</td>
+                      <td>Derrama económica percibida</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 15. 2. Codificar: «Mucho»=1, «Algo»=0.66, «Poco»=0.33, «Nada»=0.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.3 Existencia de programas de compensación o responsabilidad social empresarial</td>
+                      <td>Mecanismos de compensación</td>
+                      <td class="um">Cualitativo (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 16. 2. Asignar 1 si existen programas activos; 0 si no existen o se desconocen.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subcategoría 1.3 -->
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 3 · Conflictividad y Conflicto por el Territorio
+                <span class="mod-sub-mide">Tensión social y respuesta comunitaria</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">3.1 Número y tipo de conflictos socioambientales registrados en la última década</td>
+                      <td>Conflictividad acumulada</td>
+                      <td class="um">Número de eventos</td>
+                      <td class="me">1. Encuesta: Preguntas 17 y 18. 2. Contrastar con hemerotecas locales. 3. Clasificar tipo: derrames, restricciones a la pesca, daños a infraestructura.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.2 Percepción de inseguridad o riesgo asociado a la actividad petrolera</td>
+                      <td>Riesgo percibido</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 19. 2. Codificar: «Muy inseguro/a»=1, «Inseguro/a»=0.66, «Seguro/a»=0.33, «Muy seguro/a»=0.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.3 Grado de organización y respuesta comunitaria frente a eventos de la industria</td>
+                      <td>Movilización social</td>
+                      <td class="um">Número de acciones / Década</td>
+                      <td class="me">1. Encuesta: Pregunta 20. 2. Contar el número de protestas, denuncias o movilizaciones en los últimos 10 años.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VARIABLE 2: EROSIÓN COSTERA ==================== -->
+  <section class="section section-alt mod-var-anchor" id="erosion-costera">
+    <div class="container">
+      <div class="mod-var reveal">
+        <div class="mod-var-head">
+          <span class="tag">Variable 2 del modelo</span>
+          <h2>Erosión Costera</h2>
+          <h3>Retroceso del litoral · Afectaciones cotidianas · Respuestas</h3>
+        </div>
+        <div class="mod-var-body">
+          <p class="lead">Esta variable mide la pérdida física de territorio litoral y sus efectos sobre la vida cotidiana y productiva de las comunidades. Combina el procesamiento de imágenes satelitales (tasa de retroceso y área perdida) con información de encuesta sobre afectaciones, reubicaciones y obras de protección.</p>
+
+          <div class="mod-why">
+            <h5>Justificación</h5>
+            <p>La erosión costera no solo reduce territorio: transforma los espacios comunales, obliga a reubicar familias e incrementa la vulnerabilidad ante fenómenos meteorológicos. Su medición articula el análisis biofísico (retroceso de la línea de costa) con la experiencia social de la pérdida.</p>
+          </div>
+
+          <div class="mod-formula">
+            <span class="fl">Valor_Erosión</span> = (Promedio_tasa / Tasa_máxima_observada)
+            <br><span style="color:var(--gray-600)">La tasa máxima se establece como el valor más alto observado entre las 3 comunidades.</span>
+          </div>
+
+          <div class="mod-sub open">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 1 · Dinámica del Retroceso Costero
+                <span class="mod-sub-mide">Pérdida física de territorio litoral</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">1.1 Tasa de retroceso de la línea de costa</td>
+                      <td>Velocidad de pérdida del litoral</td>
+                      <td class="um">m/año</td>
+                      <td class="me">1. Extraer líneas de costa de imágenes Landsat (2000–2025). 2. Trazar transectos perpendiculares cada 100 m. 3. Calcular distancia entre líneas de costa. 4. Obtener tasa: distancia/años por transecto. 5. Promediar tasa por comunidad.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.2 Superficie de territorio perdido en el periodo de estudio</td>
+                      <td>Magnitud de la pérdida territorial</td>
+                      <td class="um">ha o km²</td>
+                      <td class="me">1. Crear polígonos entre líneas de costa de diferentes años. 2. Calcular área en QGIS (<code>$area</code>). 3. Convertir a hectáreas.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.3 Número y tipo de infraestructuras afectadas o pérdidas</td>
+                      <td>Daños a bienes e infraestructura</td>
+                      <td class="um">Número de elementos</td>
+                      <td class="me">1. Encuesta: Preguntas 23 y 24. 2. Georreferenciar viviendas, caminos, muelles afectados. 3. Contar elementos y clasificar por tipo.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 2 · Afectaciones a la Vida Cotidiana y Productiva
+                <span class="mod-sub-mide">Impacto de la erosión en la vida diaria</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">2.1 Percepción de la pérdida de espacios de uso comunal</td>
+                      <td>Pérdida de patrimonio comunal</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 25. 2. Contar número de espacios perdidos mencionados. 3. Normalizar a 0–1.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.2 Existencia de reubicación o desplazamiento de familias</td>
+                      <td>Desplazamiento residencial</td>
+                      <td class="um">% de viviendas reubicadas</td>
+                      <td class="me">1. Encuesta: Preguntas 26 y 27. 2. Calcular: <code>(N_familias_reubicadas / Total_familias) × 100</code>.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.3 Percepción de inseguridad ante fenómenos meteorológicos</td>
+                      <td>Vulnerabilidad climática percibida</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 28. 2. Codificar: «Mucho más vulnerable»=1, «Algo más»=0.66, «Igual»=0.33, «Menos»=0.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 3 · Respuestas a la Erosión
+                <span class="mod-sub-mide">Acciones institucionales y comunitarias</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">3.1 Presencia y tipo de obras de protección costera</td>
+                      <td>Intervención institucional en la costa</td>
+                      <td class="um">Cualitativo (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 29 y 31. 2. Observación directa y georreferenciación de obras. 3. Asignar 1 si existen obras, 0 si no.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.2 Eficacia percibida de las obras</td>
+                      <td>Evaluación social de las obras</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 30. 2. Codificar: «Muy bien»=1, «Algo»=0.66, «Poco»=0.33, «Nada»=0.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.3 Grado de conocimiento comunitario sobre el problema</td>
+                      <td>Participación y apropiación del problema</td>
+                      <td class="um">% de participación</td>
+                      <td class="me">1. Encuesta: Pregunta 32. 2. Calcular: <code>(N_participantes_actividades / Total_encuestados) × 100</code>.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VARIABLE 3: DECLIVE PESQUERO ==================== -->
+  <section class="section mod-var-anchor" id="declive-pesquero">
+    <div class="container">
+      <div class="mod-var reveal">
+        <div class="mod-var-head">
+          <span class="tag">Variable 3 del modelo</span>
+          <h2>Declive de la Pesca Artesanal</h2>
+          <h3>Transformaciones productivas · Tejido socioeconómico · Organización</h3>
+        </div>
+        <div class="mod-var-body">
+          <p class="lead">Esta variable mide la crisis de la actividad pesquera y sus efectos sobre la reproducción social. Evalúa la disminución de capturas, la pérdida y restricción de zonas de pesca, la diversificación de las estrategias familiares y el estado de la organización pesquera y sus saberes.</p>
+
+          <div class="mod-why">
+            <h5>Justificación</h5>
+            <p>La pesca artesanal es la base económica y cultural de las comunidades litorales. Su declive —por erosión del recurso, restricción de zonas por actividad petrolera o deterioro ambiental— erosiona la fuente principal de ingresos y reconfigura las estrategias de vida de los hogares.</p>
+          </div>
+
+          <div class="mod-formula">
+            <span class="fl">Declive_Pesquero</span> = (Pérdida_zona × 0.25) + (Distancia × 0.15) + (Eventos × 0.20) + (Disminución × 0.20) + (Diversificación × 0.10) + (Dependencia × 0.10)
+          </div>
+
+          <div class="mod-sub open">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 1 · Transformaciones en la Actividad Productiva
+                <span class="mod-sub-mide">Crisis de la actividad pesquera</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">1.1 Tasa de disminución de capturas</td>
+                      <td>Deterioro del recurso pesquero</td>
+                      <td class="um">Escala cualitativa (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 33. 2. Codificar: «Mucho menor»=1, «Un poco menor»=0.66, «Igual»=0.33, «Mayor»=0. 3. Triangular con datos de CONAPESCA si existen.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.2 Cambios en la composición de especies capturadas</td>
+                      <td>Pérdida de especies comerciales</td>
+                      <td class="um">Cualitativo (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 34 y 35. 2. Si se reporta pérdida de especies comerciales, asignar 1. 3. Si se reporta aumento de especies de menor valor, asignar 1.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.3 Aumento de la distancia de navegación a zonas de pesca rentable</td>
+                      <td>Mayor esfuerzo de pesca</td>
+                      <td class="um">km</td>
+                      <td class="me">1. Encuesta: Pregunta 36. 2. Georreferenciar zonas de pesca actuales y pasadas (cartografía social). 3. Calcular distancia promedio desde el muelle local.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.4 Zonas de pesca perdidas o restringidas por actividad petrolera</td>
+                      <td>Reducción del área de pesca tradicional</td>
+                      <td class="um">% del área tradicional</td>
+                      <td class="me">1. Encuesta: Pregunta 18. 2. Cartografía social: marcar zonas vedadas o restringidas. 3. Calcular: <code>(área_restringida / área_tradicional) × 100</code>.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 2 · Reconfiguración del Tejido Socioeconómico
+                <span class="mod-sub-mide">Transformación de las estrategias de vida</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">2.1 Disminución del número de pescadores activos</td>
+                      <td>Éxodo de la actividad pesquera</td>
+                      <td class="um">% de disminución</td>
+                      <td class="me">1. Encuesta: Pregunta 38. 2. Estimar: <code>(N_actuales − N_hace_25años) / N_hace_25años × 100</code>.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.2 Grado de diversificación de las estrategias familiares</td>
+                      <td>Diversificación de ingresos</td>
+                      <td class="um">Número de actividades</td>
+                      <td class="me">1. Encuesta: Pregunta 39. 2. Contar el número de actividades económicas mencionadas por hogar. 3. Promediar por comunidad.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.3 Nivel de dependencia económica de la pesca</td>
+                      <td>Vulnerabilidad por dependencia de la pesca</td>
+                      <td class="um">% de ingresos</td>
+                      <td class="me">1. Encuesta: Pregunta 40. 2. Calcular porcentaje promedio de ingresos provenientes de la pesca. 3. Invertir escala: menor dependencia = mayor diversificación.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 3 · Organización y Saberes Asociados a la Pesca
+                <span class="mod-sub-mide">Capacidad organizativa y pérdida de conocimientos</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">3.1 Estado de las organizaciones pesqueras</td>
+                      <td>Vitalidad organizativa</td>
+                      <td class="um">Cualitativo (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 42 y 43. 2. Codificar: 1 si la organización está activa y ha gestionado apoyos; 0.5 si activa con problemas; 0 si inactiva.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.2 Pérdida o transformación del conocimiento ecológico tradicional</td>
+                      <td>Pérdida de saberes</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 44 y 45. 2. Codificar: «Sí, mucho»=1, «Sí, algo»=0.66, «No»=0.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.3 Acceso a programas gubernamentales de apoyo</td>
+                      <td>Acceso a apoyos públicos</td>
+                      <td class="um">% de acceso</td>
+                      <td class="me">1. Encuesta: Preguntas 46 y 47. 2. Calcular: <code>(N_con_acceso / Total_encuestados) × 100</code>. 3. Desagregar por tipo de programa.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== VARIABLE INTEGRADORA: EROSIÓN SOCIOTERRITORIAL ==================== -->
+  <section class="section section-alt mod-var-anchor" id="socioterritorial">
+    <div class="container">
+      <div class="mod-var reveal">
+        <div class="mod-var-head">
+          <span class="tag">Variable integradora · Modelo final</span>
+          <h2>Erosión Socioterritorial</h2>
+          <h3>Reproducción social · Organización comunitaria · Desigualdades territoriales</h3>
+        </div>
+        <div class="mod-var-body">
+          <p class="lead">La variable integradora sintetiza el modelo y captura la reconfiguración de la vida social frente a los procesos físico-productivos. Integra dimensiones de reproducción social, capital social y organización comunitaria, y distribución de desigualdades territoriales.</p>
+
+          <div class="mod-why">
+            <h5>Justificación</h5>
+            <p>Esta variable articula las dimensiones anteriores con la experiencia social: cómo cambian las estrategias familiares, cómo se reorganiza (o debilita) la comunidad y cómo se distribuyen de manera desigual los costos y beneficios de la erosión y el extractivismo. Es el componente que da sentido «socioterritorial» al modelo.</p>
+          </div>
+
+          <div class="mod-formula">
+            <span class="fl">Erosión_Socioterritorial</span> = (Reubicación × 0.15) + (Espacios_perdidos × 0.15) + (Conflictividad × 0.15) + (Desigualdad_acceso × 0.15) + (Participación × 0.10) + (Acciones_colectivas × 0.10) + (Percepción_futuro × 0.10) + (Abandono_institucional × 0.10)
+          </div>
+
+          <div class="mod-sub open">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 1 · Reconfiguración de la Reproducción Social
+                <span class="mod-sub-mide">Cambios en la vida cotidiana y familiar</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">1.1 Cambios en las estrategias familiares de vida (migración, diversificación, trabajo femenino)</td>
+                      <td>Estrategias de adaptación</td>
+                      <td class="um">Número de cambios reportados</td>
+                      <td class="me">1. Encuesta: Preguntas 48, 49 y 50. 2. Contar el número de estrategias de adaptación mencionadas. 3. Normalizar a 0–1.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.2 Reconfiguración de roles de género y relaciones intergeneracionales</td>
+                      <td>Cambio en roles de género</td>
+                      <td class="um">Cualitativo (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 51. 2. Codificar: «Mucho»=1, «Algo»=0.66, «Igual»=0.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">1.3 Percepción de bienestar y futuro para nuevas generaciones</td>
+                      <td>Proyección de futuro</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 52 y 53. 2. Promediar puntuaciones de ambas preguntas.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 2 · Debilitamiento o Fortalecimiento de la Organización Comunitaria
+                <span class="mod-sub-mide">Capital social y capacidad de acción colectiva</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">2.1 Evolución de la participación en espacios comunitarios y capital social</td>
+                      <td>Capital social participativo</td>
+                      <td class="um">% de participación</td>
+                      <td class="me">1. Encuesta: Preguntas 54 y 55. 2. Calcular: <code>(N_asistentes_frecuentes / Total_encuestados) × 100</code>.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.2 Número, tipo y éxito de las acciones colectivas</td>
+                      <td>Acción colectiva</td>
+                      <td class="um">Número de acciones</td>
+                      <td class="me">1. Encuesta: Preguntas 56 y 57. 2. Contar acciones colectivas reportadas en los últimos 10 años.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">2.3 Capacidad de la comunidad para incidir en la gobernanza territorial</td>
+                      <td>Incidencia en decisiones</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 58 y 59. 2. Promediar percepción de incidencia y de ser tomados en cuenta por autoridades.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <div class="mod-sub">
+            <button class="mod-sub-head" type="button">
+              <span>Subcategoría 3 · Configuración de Desigualdades Territoriales
+                <span class="mod-sub-mide">Distribución diferencial de costos y beneficios</span>
+              </span>
+              <span class="arrow">›</span>
+            </button>
+            <div class="mod-sub-body">
+              <div class="mod-scroll">
+                <table class="mod-ind">
+                  <thead><tr><th>Indicador</th><th>Qué mide</th><th>Unidad</th><th>Método</th></tr></thead>
+                  <tbody>
+                    <tr>
+                      <td class="in">3.1 Distribución diferencial de los costos ambientales entre grupos sociales</td>
+                      <td>Afectación diferencia por el territorio</td>
+                      <td class="um">Cualitativo (0–1)</td>
+                      <td class="me">1. Encuesta: Pregunta 60. 2. Codificar: 1 si se reporta afectación diferencial (ej. «afecta más a los pobres»), 0 si es homogénea.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.2 Acceso desigual a los beneficios del extractivismo y programas públicos por género, edad y nivel cooperativo</td>
+                      <td>Desigualdad de acceso a beneficios</td>
+                      <td class="um">Cualitativo (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 61 y 62. 2. Codificar: 1 si se reporta desigualdad de acceso, 0 si es equitativo.</td>
+                    </tr>
+                    <tr>
+                      <td class="in">3.3 Grado de abandono institucional percibido</td>
+                      <td>Abandono y situación económica relativa</td>
+                      <td class="um">Escala Likert (0–1)</td>
+                      <td class="me">1. Encuesta: Preguntas 63 y 64. 2. Codificar percepción de abandono y situación económica relativa. 3. Promediar ambas puntuaciones.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== MODELO INTEGRADOR ==================== -->
+  <section class="section mod-integration" id="modelo">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-label">Modelo integrador</span>
+        <h2 class="section-title" style="color:var(--white)">Resultado del procedimiento</h2>
+        <p class="section-desc">Un índice normalizado (0–1) que sintetiza las dimensiones física, productiva y social de la erosión en cada comunidad</p>
+      </div>
+
+      <div class="mod-model-eq reveal" style="border-color:rgba(200,164,21,0.4);">
+        Erosión Socioterritorial &nbsp;= &nbsp;<strong style="color:var(--accent)">Extractivismo</strong> &nbsp;+&nbsp; <strong style="color:var(--accent)">Erosión costera</strong> &nbsp;+&nbsp; <strong style="color:var(--accent)">Declive pesquero</strong>
+      </div>
+
+      <div class="section-header reveal" style="margin-top:3rem;">
+        <div class="hero-buttons" style="justify-content:center;">
+          <a href="#procedimiento" class="btn btn-outline">Regresar al procedimiento</a>
+          <a href="index.html" class="btn btn-primary">Visitar el sitio del proyecto</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div>
+        <h4>Modelo de Erosión Socioterritorial</h4>
+        <p>Procedimiento para la obtención de las variables del modelo de Erosión Socioterritorial y Extractivismo Petrolero en la costa de Tabasco. ECOSUR · Unidad Villahermosa.</p>
+      </div>
+      <div>
+        <h4>Secciones</h4>
+        <ul class="footer-links">
+          <li><a href="#introduccion">Introducción</a></li>
+          <li><a href="#justificacion">Justificación</a></li>
+          <li><a href="#procedimiento">Procedimiento</a></li>
+          <li><a href="#extractivismo">Extractivismo</a></li>
+          <li><a href="#erosion-costera">Erosión Costera</a></li>
+          <li><a href="#declive-pesquero">Declive Pesquero</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <p><strong>Dr. Armando Hernández de la Cruz</strong><br>
+        ECOSUR, Unidad Villahermosa<br>
+        Departamento de Sociedad y Cultura<br>
+        Villahermosa, Tabasco, México</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>&copy; 2026 ECOSUR — Convocatoria Nacional de Investigación Científica y Humanística 2026</span>
+      <span>Investigación Humanística</span>
+    </div>
+  </footer>
+
+  <!-- ==================== BACK TO TOP ==================== -->
+  <button class="back-to-top" aria-label="Volver arriba">&#8593;</button>
+
+  <!-- ==================== SCRIPTS ==================== -->
+  <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    // Acordeones de subcategorías de esta página
+    document.querySelectorAll('.mod-sub-head').forEach(function (head) {
+      head.addEventListener('click', function () {
+        var parent = head.closest('.mod-sub');
+        parent.classList.toggle('open');
+      });
+    });
+  });
+  </script>
+  <script src="js/main.js"></script>
+</body>
+</html>

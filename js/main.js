@@ -126,79 +126,78 @@ document.addEventListener('DOMContentLoaded', () => {
     if (lightboxImg) lightboxImg.src = '';
   }
 
-  // ==================== MAP (Leaflet) ====================
-  const mapEl = document.getElementById('map');
-  if (mapEl && typeof L !== 'undefined') {
-    const map = L.map('map', {
-      center: [18.45, -93.15],
-      zoom: 10,
-      scrollWheelZoom: false
+  // ==================== MAPA DE LOCALIDADES (Leaflet) ====================
+  const mapLocEl = document.getElementById('map-loc');
+  if (mapLocEl && typeof L !== 'undefined') {
+    const locMap = L.map('map-loc').setView([18.25, -93.3], 9);
+
+    const osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenStreetMap', maxZoom: 19
+    });
+    const satLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '&copy; Esri', maxZoom: 19
+    });
+    const topoLayer = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; OpenTopoMap', maxZoom: 17
     });
 
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-      subdomains: 'abcd',
-      maxZoom: 19
-    }).addTo(map);
+    let activeLayer = osmLayer;
+    osmLayer.addTo(locMap);
 
-    const communities = [
-      {
-        name: 'El Bosque, Centla',
-        coords: [18.4311, -93.0833],
-        color: '#27ae60',
-        description: 'Comunidad pesquera con alta dependencia de la pesca artesanal y procesos de erosión costera.'
-      },
-      {
-        name: 'Sánchez Magallanes, Cárdenas',
-        coords: [18.3944, -93.2083],
-        color: '#1a7a9e',
-        description: 'Villa y Puerto con infraestructura petrolera cercana y transformaciones productivas.'
-      },
-      {
-        name: 'El Pénjamo, Paraíso',
-        coords: [18.4167, -93.2500],
-        color: '#c8a415',
-        description: 'Zona de convergencia entre actividad petrolera offshore y pesca artesanal.'
-      }
+    const selector = document.getElementById('map-select');
+    if (selector) {
+      selector.addEventListener('change', function() {
+        locMap.removeLayer(activeLayer);
+        if (this.value === 'sat') { activeLayer = satLayer; }
+        else if (this.value === 'topo') { activeLayer = topoLayer; }
+        else { activeLayer = osmLayer; }
+        activeLayer.addTo(locMap);
+      });
+    }
+
+    const mkIcon = (color) => L.divIcon({
+      className: '', html: `<div style="background:${color};width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4);"></div>`,
+      iconSize: [20,20], iconAnchor: [10,10], popupAnchor: [0,-14]
+    });
+
+    const locData = [
+      { name:'El Bosque, Centla', lat:18.55, lng:-92.633, color:'#c0392b',
+        pop:'172 hab.', alt:'0 m.s.n.m.', act:'Pesca artesanal',
+        desc:'Pueblo costero reubicado por cambio climático. Erosión severa.' },
+      { name:'Sánchez Magallanes, Cárdenas', lat:18.2957, lng:-93.8610, color:'#27ae60',
+        pop:'9,787 hab.', alt:'10 m.s.n.m.', act:'Pesca de ostiones',
+        desc:'Puerto pesquero en la Barra de Santa Ana. Mayor productor de ostiones de Tabasco.' },
+      { name:'El Pénjamo, Paraíso', lat:18.48, lng:-93.22, color:'#0e4d6f',
+        pop:'1,966 hab. (sección)', alt:'0-20 m.s.n.m.', act:'Petróleo (PEMEX)',
+        desc:'Cercano a Dos Bocas y la Refinería Olmeca. Economía petrolera dominante.' }
     ];
 
-    communities.forEach(c => {
-      const marker = L.circleMarker(c.coords, {
-        radius: 10,
-        fillColor: c.color,
-        color: '#fff',
-        weight: 3,
-        opacity: 1,
-        fillOpacity: 0.85
-      }).addTo(map);
-
-      marker.bindPopup(`
-        <div style="font-family: 'Source Sans 3', sans-serif; min-width: 200px;">
-          <h3 style="margin: 0 0 8px; font-size: 1rem; color: #0c2340;">${c.name}</h3>
-          <p style="margin: 0; font-size: 0.85rem; color: #6c757d; line-height: 1.5;">${c.description}</p>
-        </div>
-      `);
+    locData.forEach(d => {
+      L.marker([d.lat,d.lng],{icon:mkIcon(d.color)}).addTo(locMap)
+        .bindPopup(`<div style="min-width:200px;font-family:'Source Sans 3',sans-serif;">
+          <h4 style="margin:0 0 6px;color:${d.color};font-size:13px;">${d.name}</h4>
+          <p style="margin:2px 0;font-size:12px;"><b>Población:</b> ${d.pop}</p>
+          <p style="margin:2px 0;font-size:12px;"><b>Altitud:</b> ${d.alt}</p>
+          <p style="margin:2px 0;font-size:12px;"><b>Actividad:</b> ${d.act}</p>
+          <p style="margin:6px 0 0;font-size:11px;color:#555;">${d.desc}</p>
+        </div>`,{maxWidth:260});
+      L.circle([d.lat,d.lng],{color:d.color,fillColor:d.color,fillOpacity:.12,radius:8000}).addTo(locMap);
     });
 
-    // Georreferenciar la zona del proyecto
-    const projectArea = L.polygon([
-      [18.50, -93.00],
-      [18.50, -93.35],
-      [18.35, -93.35],
-      [18.35, -93.00]
-    ], {
-      color: '#c8a415',
-      fillColor: '#c8a415',
-      fillOpacity: 0.05,
-      weight: 2,
-      dashArray: '8, 8'
-    }).addTo(map);
-
-    projectArea.bindPopup('<strong>Zona de estudio:</strong> Costa de Tabasco, Golfo de México');
-
-    // Forzar recalcule del mapa
-    setTimeout(() => map.invalidateSize(), 200);
+    L.control.scale().addTo(locMap);
+    setTimeout(() => locMap.invalidateSize(), 300);
   }
+
+  // ==================== TABS DE CARACTERIZACIÓN ====================
+  document.querySelectorAll('.loc-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parent = btn.closest('.loc-card-body');
+      parent.querySelectorAll('.loc-tab-btn').forEach(b => b.classList.remove('active'));
+      parent.querySelectorAll('.loc-tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      parent.querySelector('#' + btn.dataset.loc)?.classList.add('active');
+    });
+  });
 
   // ==================== COUNTER ANIMATION ====================
   const counters = document.querySelectorAll('.counter');
