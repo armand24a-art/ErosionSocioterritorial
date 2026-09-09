@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
           return {
             color: '#c8a415', weight: 1.1, opacity: 0.75,
             fillColor: '#c8a415',
-            fillOpacity: d === 1000 ? 0.14 : d === 5000 ? 0.09 : d === 10000 ? 0.06 : 0.04
+            fillOpacity: d === 1000 ? 0.5 : d === 5000 ? 0.09 : d === 10000 ? 0.06 : 0.04
           };
         },
         tooltip: (p) => ({ title: 'Franja costera (buffer)', rows: [['Distancia', (Number(p.distance) / 1000) + ' km']] })
