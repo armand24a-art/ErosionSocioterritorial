@@ -33,6 +33,7 @@
     .loc-tab-panel { display: none; }
     .loc-tab-panel.active { display: block; }
     .map-wrapper { position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); margin: 2rem 0; border: 2px solid var(--gray-200); }
+    #mapa { scroll-margin-top: 80px; }
     #map-loc { width: 100%; height: 500px; }
     .map-controls { padding: 1rem 1.5rem; background: var(--gray-50); border-top: 1px solid var(--gray-200); display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
     .map-controls label { font-size: 0.85rem; font-weight: 600; color: var(--gray-800); }
@@ -91,6 +92,7 @@
         <li><a href="#proyecto">Proyecto</a></li>
         <li><a href="#equipo">Equipo</a></li>
         <li><a href="#comunidades">Comunidades</a></li>
+        <li><a href="#mapa">Mapa</a></li>
         <li><a href="#galeria">Galería</a></li>
         <li><a href="#metodologia">Metodología</a></li>
         <li><a href="#resultados">Resultados</a></li>
@@ -654,7 +656,7 @@
         <h2 class="section-title">Mapa de las Tres Localidades</h2>
         <p class="section-desc">Visor interactivo con mapas base y capas temáticas (GeoJSON). Al iniciar se cargan todas las capas; el panel <strong>Capas del visor</strong> (dentro del mapa, colapsable con un clic) permite encenderlas o apagarlas, y al pasar el cursor sobre los vectores se muestra su información.</p>
       </div>
-      <div class="map-wrapper reveal">
+      <div class="map-wrapper reveal" id="mapa">
         <div id="map-loc"></div>
         <div class="map-layers">
           <div class="map-layers-head" id="layers-head">
