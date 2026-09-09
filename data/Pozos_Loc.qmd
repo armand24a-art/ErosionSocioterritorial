@@ -1,0 +1,130 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis version="3.32.3-Lima">
+  <identifier>Pozos_Loc</identifier>
+  <parentidentifier></parentidentifier>
+  <language>ENG</language>
+  <type>dataset</type>
+  <title>Pozos región Cuencas del Sureste.</title>
+  <abstract>1. Identificación del conjunto de datos espaciales o producto  
+1.1 Título del conjunto de datos espaciales o producto  
+Pozos Zona Cuencas del Sureste
+1.2 Propósito  
+Muestra la ubicación geográfica de los pozos históricos y los pozos confidenciales perforados en la zona de las Cuencas del Sureste.
+1.3 Descripción del conjunto de datos espaciales o producto  
+Este shapefile contiene información básica más importante como nombre del pozo, campo al que pertenece, entidad federativa, tipo de pozo, tipo de hidrocarburo, estado actual, fecha de inicio de perforación, la fecha de fin de perforación, profundidad, tipo de trayectoria y si la información del pozo está disponible o es confidencial.
+1.4 Idioma del conjunto de datos espaciales o producto  
+ES – Español
+1.5 Categoría del tema del conjunto de datos espaciales o producto  
+1.5.1 Tema principal
+6. Información Geocientífica
+1.5.2 Grupo de datos del conjunto de datos espaciales
+1. Grupo de datos de recursos naturales y clima
+1.6 Palabra clave  
+Pozos, perforación, terrestre, histórico, confidencial, exploratorios, desarrollo, delimitador, Cuencas del Sureste
+1.10 Forma de presentación de los datos espaciales  
+5. Mapa Digital
+1.11 Enlace en línea  
+1.11.1 URL del recurso
+https://mapa.hidrocarburos.gob.mx/?lng=es_MX&amp;v=eyJ2aXNpYmxlTGF5ZXJzIjpbInZfem9uX3Bvem9zX2N1ZW5jYV9zdXIiXSwidmlld0V4dGVudCI6eyJzcGF0aWFsUmVmZXJlbmNlIjp7IndraWQiOjEwMjEwMH0sInhtaW4iOi0xNDUyMjA3NS42NjU1NDQ4MjEsInltaW4iOjEzOTUyMjYuOTk2MTI4NjE5NCwieG1heCI6LTc4NDk0MjguODQ0MzYzODQ4LCJ5bWF4Ijo0MTY4OTczLjg3ODU0MDM1NzZ9LCJleHBhbmRlZFdpZGdldHMiOlt7ImlkIjoidG9nZ2xlRXhwYW5kVE9DIiwiZXhwYW5kZWQiOnRydWUsInZpc2libGUiOnRydWV9LHsiaWQiOiJ0b2dnbGVFeHBhbmRCYXNlTWFwIiwiZXhwYW5kZWQiOmZhbHNlLCJ2aXNpYmxlIjp0cnVlfSx7ImlkIjoidG9nZ2xlRXhwYW5kTGVnZW5kIiwiZXhwYW5kZWQiOnRydWUsInZpc2libGUiOnRydWV9XX0%3D
+1.12 Frecuencia de mantenimiento y actualización  
+1. Diariamente
+1.13 Conjunto de caracteres  
+4. UTF8
+1.15 Uso específico  
+La información es propiedad de la Nación y su acopio, resguardo, uso, administración y actualización, así como la publicación de esta corresponde a la Comisión Nacional de Hidrocarburos. En consecuencia, el contenido de estos datos no puede ser editado y/o comercializado, total o parcialmente sin previa autorización de la CNH, el uso de esta información es responsabilidad del usuario.       
+2. Fechas relacionadas con el conjunto de datos espaciales o producto  
+2.1 Fechas y eventos  
+2.1.1 Fecha de referencia del conjunto de datos espaciales o productos  
+2016-11-01
+2.1.2 Tipo de Fecha
+2. Publicación
+2.2 Fechas de los insumos tomados para la elaboración del producto o conjunto de datos espaciales
+2.2.1 Fecha de creación de los insumos
+2016-04-30
+2.2.4 Nombre del insumo
+Transferencia histórica
+3. Unidad del estado responsable del conjunto de datos espaciales o producto  
+3.12 Enlace en línea (dirección de Internet de referencia)  
+https://mapa.hidrocarburos.gob.mx
+3.13 Rol
+2. Custodio
+4. Localización geográfica del conjunto de datos espaciales o producto  
+4.1 Localización geográfica del conjunto de datos espaciales o producto  
+4.1.1 Coordenada límite al Oeste  
+-96.132353
+4.1.2 Coordenada límite al Este  
+-87.722350
+4.1.3 Coordenada límite al Sur  
+14.963822
+4.1.4 Coordenada límite al Norte  
+21.166581
+4.2 Tipo de representación espacial  
+1. Vector
+6. Calidad de la Información
+6.1 Alcance o ámbito
+6.1.1 Nivel
+10. Tipo de objeto espacial
+6.3 Linaje
+Los elementos mostrados en el mapa corresponden a cada uno de los pozos que fueron transferidos al CNIH por PEMEX, con fundamento en Noveno Transitorio de la Ley de Hidrocarburos y a cada uno de los pozos nuevos (confidenciales) perforados a partir de 2014.
+8. Distribución
+La información es propiedad de la Nación y su acopio, resguardo, uso, administración y actualización, así como la publicación de esta corresponde a la Comisión Nacional de Hidrocarburos. En consecuencia, el contenido de estos datos no puede ser editado y/o comercializado, total o parcialmente sin previa autorización de la CNH, el uso de esta información es responsabilidad del usuario.
+8.4 Formato de distribución
+8.4.1 Nombre del formato 
+Archivo vectorial con extensión .shp
+ 9. Información de metadatos  
+9.1 Nombre del estándar de metadatos   
+ISO 19115 Información Geográfica - Metadatos (Norma Técnica para Metadatos)
+9.3 Idioma de los Metadatos  
+ES – Español 
+9.4 Punto de contacto para los Metadatos  
+Centro Nacional de Información de Hidrocarburos
+9.4.4 Teléfono 
+Tel: (55)4774-6500
+9.4.6 Dirección 
+Av. Patriotismo 580, Colonia Nonoalco
+9.4.7 Ciudad 
+Ciudad de México
+9.4.8 Área administrativa 
+Delegación Benito Juárez
+9.4.9 Código postal 
+03700
+9.4.10 País 
+México
+9.4.11 Dirección de correo electrónico del contacto 
+estadistica@cnh.gob.mx
+9.5 Fecha de metadatos
+2021-02-23
+9.6 Conjunto de caracteres
+4. UTF-8 
+
+Proporciona la información de los Pozos Perforados que se encuentran en el sureste del país en la región de las cuencas del sureste. </abstract>
+  <keywords vocabulary="Buscar claves">
+    <keyword>Pozos</keyword>
+    <keyword>perforación</keyword>
+    <keyword>Cuencas del Sureste</keyword>
+    <keyword>lacustre</keyword>
+    <keyword>terrestre</keyword>
+    <keyword>exploratorios</keyword>
+    <keyword>desarrollo.</keyword>
+  </keywords>
+  <links/>
+  <dates/>
+  <fees></fees>
+  <constraints type="Limitaciones de uso">La información es propiedad de la Nación y su acopio, resguardo, uso, administración y actualización, así como la publicación de esta corresponde a la Comisión Nacional de Hidrocarburos. En consecuencia, el contenido de estos datos no puede ser editado y/o comercializado, total o parcialmente sin previa autorización de la CNH, el uso de esta información es responsabilidad del usuario. </constraints>
+  <rights>PEMEX</rights>
+  <encoding></encoding>
+  <crs>
+    <spatialrefsys nativeFormat="Wkt">
+      <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
+      <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+      <srsid>3452</srsid>
+      <srid>4326</srid>
+      <authid>EPSG:4326</authid>
+      <description>WGS 84</description>
+      <projectionacronym>longlat</projectionacronym>
+      <ellipsoidacronym>EPSG:7030</ellipsoidacronym>
+      <geographicflag>true</geographicflag>
+    </spatialrefsys>
+  </crs>
+  <extent/>
+</qgis>
