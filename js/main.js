@@ -193,7 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 'localidades', color: '#0e4d6f',
         label: 'Tres localidades (Sánchez Magallanes, M. de la Madrid, El Bosque)',
         url: 'data/Sanchez_Paraiso_Frontera.geojson', js: 'data/layers/localidades.js',
-        style: () => ({ color: '#0e4d6f', weight: 1.6, opacity: 0.85, fillColor: '#0e4d6f', fillOpacity: 0.12 }),
+        style: () => ({ color: '#0e4d6f', weight: 1.6, opacity: 0.85, fillColor: '#0e4d6f', fillOpacity: 0.8 }),
         tooltip: (p) => ({ title: p.NOMGEO || 'Localidad', rows: ttRows(p, [['POB1', 'Población', fmtPob], ['CABECERA', 'Cabecera']]) })
       },
       {
