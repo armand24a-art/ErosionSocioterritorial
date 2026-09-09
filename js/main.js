@@ -197,6 +197,23 @@ document.addEventListener('DOMContentLoaded', () => {
         tooltip: (p) => ({ title: p.NOMGEO || 'Localidad', rows: ttRows(p, [['POB1', 'Población', fmtPob], ['CABECERA', 'Cabecera']]) })
       },
       {
+        id: 'buffer', color: '#d81b60',
+        label: 'Buffers 1–20 km (Sánchez–Paraíso–Frontera)',
+        url: 'data/Sanchez_Paraiso_Frontera_Buffer.geojson', js: 'data/layers/buffer.js',
+        style: (f) => {
+          const d = Number(f.properties && f.properties.distance);
+          return {
+            color: '#d81b60', weight: 1.2, opacity: 0.8,
+            fillColor: '#d81b60',
+            fillOpacity: d === 1000 ? 0.10 : d === 5000 ? 0.06 : d === 10000 ? 0.04 : 0.03
+          };
+        },
+        tooltip: (p) => ({ title: 'Buffer ' + (Number(p.distance) / 1000) + ' km', rows: [
+          ['Distancia', (Number(p.distance) / 1000) + ' km'],
+          ['Área', (Number(p.Shape_Area) / 1e6).toLocaleString('es-MX') + ' km²']
+        ] })
+      },
+      {
         id: 'rurales', color: '#8e44ad',
         label: 'Localidades rurales',
         url: 'data/Localidades_Rurales.geojson', js: 'data/layers/localidades_rurales.js',
@@ -326,6 +343,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const grp = L.geoJSON(data, geoOptions(cfg));
         grp.addTo(locMap);
         geoGroups[cfg.id] = grp;
+        if (cfg.id === 'localidades') grp.bringToFront();
+        else if (geoGroups.localidades) geoGroups.localidades.bringToFront();
         const n = data.features ? data.features.length : 0;
         setStatus('«' + cfg.label + '»: ' + n + (n === 1 ? ' elemento' : ' elementos') + '.');
       } catch (err) {
@@ -353,8 +372,8 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         layerPanel.appendChild(item);
       });
-      // Solo el tema central y la franja costera se cargan al iniciar; el resto manual
-      const AUTO_LOAD = new Set(['localidades', 'clip']);
+      // Solo las tres localidades y los buffers 1–20 km se cargan al iniciar; el resto manual
+      const AUTO_LOAD = new Set(['localidades', 'buffer']);
       Array.from(layerPanel.querySelectorAll('.layer-item')).forEach((item, i) => {
         if (AUTO_LOAD.has(geoLayers[i].id)) {
           item.querySelector('input').checked = true;
