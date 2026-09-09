@@ -1,0 +1,129 @@
+<!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
+<qgis version="3.32.3-Lima">
+  <identifier>Con_Recursos_Loc</identifier>
+  <parentidentifier></parentidentifier>
+  <language>ENG</language>
+  <type>dataset</type>
+  <title>Áreas con Recursos</title>
+  <abstract>1. Identificación del conjunto de datos espaciales o producto  
+1.1 Título del conjunto de datos espaciales o producto  
+Áreas con Recursos
+1.2 Propósito  
+Áreas de exploración en las que se predijo la presencia de hidrocarburos, en cantidades, los recursos petrolíferos son las cantidades estimadas de hidrocarburos que ocurren naturalmente sobre o dentro de la corteza terrestre. Las evaluaciones de recursos estiman las cantidades totales en acumulaciones conocidas o aún a descubrir; las evaluaciones de recursos son enfocadas en aquellas cantidades que potencialmente pueden ser recuperadas y comercializadas en proyectos comerciales.
+1.3 Descripción del conjunto de datos espaciales o producto  
+Las evaluaciones de recursos estiman las cantidades totales en acumulaciones conocidas o aún a descubrir; las evaluaciones de recursos son enfocadas en aquellas cantidades que potencialmente pueden ser recuperadas y comercializadas en proyectos comerciales, este shapefile muestra la agrupación de áreas que consisten en uno o varios yacimientos todos ellos agrupados o relacionados de acuerdo mismos aspectos geológicos, estructurales o estratigráficos, el archivo contiene datos como son el nombre, ubicación, Volumen Original de Crudo y Gas al 1° de enero de 2023.
+1.4 Idioma del conjunto de datos espaciales o producto  
+ES – Español
+1.5 Categoría del tema del conjunto de datos espaciales o producto  
+1.5.1 Tema principal
+6. Información geocientífica
+1.5.2 Grupo de datos del conjunto de datos espaciales
+1. Grupo de datos de recursos naturales
+1.6 Palabra clave  
+Prospección, predicción, hidrocarburos, Reservas, Volúmen Original, Producción Acumulada
+1.10 Forma de presentación de los datos espaciales  
+5. Mapa Digital
+1.11 Enlace en línea  
+1.11.1 URL del recurso
+https://mapa.hidrocarburos.gob.mx/?lng=es_MX&amp;v=eyJ2aXNpYmxlTGF5ZXJzIjpbImNtcF9hcmVhX3JlYyJdLCJ2aWV3RXh0ZW50Ijp7InNwYXRpYWxSZWZlcmVuY2UiOnsid2tpZCI6MTAyMTAwfSwieG1pbiI6LTE0NTIyMDc1LjY2NTU0NDgyMSwieW1pbiI6MTI3NTM3My43MzU3Nzc0OTUsInhtYXgiOi03ODQ5NDI4Ljg0NDM2Mzg0OCwieW1heCI6NDI4ODgyNy4xMzg4OTE0ODN9LCJleHBhbmRlZFdpZGdldHMiOlt7ImlkIjoidG9nZ2xlRXhwYW5kVE9DIiwiZXhwYW5kZWQiOnRydWUsInZpc2libGUiOnRydWV9LHsiaWQiOiJ0b2dnbGVFeHBhbmRCYXNlTWFwIiwiZXhwYW5kZWQiOmZhbHNlLCJ2aXNpYmxlIjp0cnVlfSx7ImlkIjoidG9nZ2xlRXhwYW5kTGVnZW5kIiwiZXhwYW5kZWQiOnRydWUsInZpc2libGUiOnRydWV9XX0%3D
+1.12 Frecuencia de mantenimiento y actualización  
+8. Irregular
+1.13 Conjunto de caracteres  
+4. UTF8
+1.15 Uso específico  
+La Ley de Hidrocarburos establece en el Art. 32 que pertenece a la Nación la información geológica, geofísica, petrofísica, petroquímica y, en general, la que se obtenga o se haya obtenido de las actividades de Reconocimiento y Exploración Superficial, así como de Exploración y Extracción, llevadas a cabo por parte de Petróleos Mexicanos, cualquier otra empresa productiva del Estado o por cualquier persona y corresponde a la Comisión Nacional de Hidrocarburos el acopio, resguardo, uso, administración y actualización, así como la publicación de la información referida en el presente artículo, por medio del Centro Nacional de Información de Hidrocarburos.
+2. Fechas relacionadas con el conjunto de datos espaciales o producto  
+2.1 Fechas y eventos  
+2.1.1 Fecha de referencia del conjunto de datos espaciales o productos  
+2024-06-24
+2.1.2 Tipo de Fecha
+3. Revisión
+2.2 Fechas de los insumos tomados para la elaboración del producto o conjunto de datos espaciales
+2.2.1 Fecha de creación de los insumos
+Desconocida
+2.2.4 Nombre del insumo
+Transferencia histórica
+3. Unidad del estado responsable del conjunto de datos espaciales o producto  
+3.12 Enlace en línea (dirección de Internet de referencia)  
+https://mapa.hidrocarburos.gob.mx
+3.13 Rol
+2. Custodio
+4. Localización geográfica del conjunto de datos espaciales o producto  
+4.1 Localización geográfica del conjunto de datos espaciales o producto  
+4.1.1 Coordenada límite al Oeste  
+-101.887361
+4.1.2 Coordenada límite al Este  
+-90.544427
+4.1.3 Coordenada límite al Sur  
+16.348756
+4.1.4 Coordenada límite al Norte  
+28.980482
+4.2 Tipo de representación espacial  
+1. Vector
+6. Calidad de la Información
+6.1 Alcance o ámbito
+6.1.1 Nivel
+10. Tipo de objeto espacial
+6.3 Linaje
+Con fundamento con el Noveno Transitorio de la Ley de Hidrocarburos, para integrar el Centro Nacional de Información de Hidrocarburos, Petróleos Mexicanos, sus organismos subsidiarios y empresas filiales, así como el Instituto Mexicano del Petróleo, transferirán a la Comisión Nacional de Hidrocarburos, a título gratuito, toda la información a que se refieren los artículos 32, 33 y 35 de esta Ley, que se haya obtenido a la fecha de entrada en vigor de esta Ley.
+8. Distribución
+8.3 Responsabilidad de distribución
+La información es propiedad de la Nación y su acopio, resguardo, uso, administración y actualización, así como la publicación de esta corresponde a la Comisión Nacional de Hidrocarburos. En consecuencia, el contenido de estos datos no puede ser editado y/o comercializado, total o parcialmente sin previa autorización de la CNH, el uso de esta información es responsabilidad del usuario.
+8.4 Formato de distribución
+8.4.1 Nombre del formato 
+Archivo vectorial con extensión .shp
+9. Información de metadatos  
+9.1 Nombre del estándar de metadatos   
+ISO 19115 Información Geográfica - Metadatos (Norma Técnica para Metadatos)
+9.3 Idioma de los Metadatos  
+9.4 Punto de contacto para los Metadatos  
+Centro Nacional de Información de Hidrocarburos
+9.4.4 Teléfono 
+Tel: (55)4774-6500
+9.4.6 Dirección 
+Av. Patriotismo 580, Colonia Nonoalco
+9.4.7 Ciudad 
+Ciudad de México
+9.4.8 Área administrativa 
+Delegación Benito Juárez
+9.4.9 Código postal 
+03700
+9.4.10 País 
+México
+9.4.11 Dirección de correo electrónico del contacto 
+estadistica@cnh.gob.mx
+9.5 Fecha de metadatos
+2021-05-25
+9.6 Conjunto de caracteres
+4. UTF-8
+
+
+Áreas de exploración en las que se predijo la presencia de hidrocarburos, en cantidades, los recursos petrolíferos son las cantidades estimadas de hidrocarburos que ocurren naturalmente sobre o dentro de la corteza terrestre. Las evaluaciones de recursos estiman las cantidades totales en acumulaciones conocidas o aún a descubrir; las evaluaciones de recursos son enfocadas en aquellas cantidades que potencialmente pueden ser recuperadas y comercializadas en proyectos comerciales. </abstract>
+  <keywords vocabulary="Buscar claves">
+    <keyword>Prospección</keyword>
+    <keyword>predicción</keyword>
+    <keyword>hidrocarburos</keyword>
+    <keyword>Volúmen Original</keyword>
+    <keyword>Producción Acumulada</keyword>
+  </keywords>
+  <links/>
+  <dates/>
+  <fees></fees>
+  <constraints type="Limitaciones de uso">La información es propiedad de la Nación y su acopio, resguardo, uso, administración y actualización, así como la publicación de esta corresponde a la Comisión Nacional de Hidrocarburos. En consecuencia, el contenido de estos datos no puede ser editado y/o comercializado, total o parcialmente sin previa autorización de la CNH, el uso de esta información es responsabilidad del usuario. </constraints>
+  <rights>PEMEX - CNH</rights>
+  <encoding></encoding>
+  <crs>
+    <spatialrefsys nativeFormat="Wkt">
+      <wkt>GEOGCRS["WGS 84",ENSEMBLE["World Geodetic System 1984 ensemble",MEMBER["World Geodetic System 1984 (Transit)"],MEMBER["World Geodetic System 1984 (G730)"],MEMBER["World Geodetic System 1984 (G873)"],MEMBER["World Geodetic System 1984 (G1150)"],MEMBER["World Geodetic System 1984 (G1674)"],MEMBER["World Geodetic System 1984 (G1762)"],MEMBER["World Geodetic System 1984 (G2139)"],ELLIPSOID["WGS 84",6378137,298.257223563,LENGTHUNIT["metre",1]],ENSEMBLEACCURACY[2.0]],PRIMEM["Greenwich",0,ANGLEUNIT["degree",0.0174532925199433]],CS[ellipsoidal,2],AXIS["geodetic latitude (Lat)",north,ORDER[1],ANGLEUNIT["degree",0.0174532925199433]],AXIS["geodetic longitude (Lon)",east,ORDER[2],ANGLEUNIT["degree",0.0174532925199433]],USAGE[SCOPE["Horizontal component of 3D system."],AREA["World."],BBOX[-90,-180,90,180]],ID["EPSG",4326]]</wkt>
+      <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
+      <srsid>3452</srsid>
+      <srid>4326</srid>
+      <authid>EPSG:4326</authid>
+      <description>WGS 84</description>
+      <projectionacronym>longlat</projectionacronym>
+      <ellipsoidacronym>EPSG:7030</ellipsoidacronym>
+      <geographicflag>true</geographicflag>
+    </spatialrefsys>
+  </crs>
+  <extent/>
+</qgis>

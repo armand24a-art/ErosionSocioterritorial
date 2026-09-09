@@ -155,6 +155,189 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
+    // ==================== TEMATIC LAYERS (GeoJSON dynamic viewer) ====================
+    const layerPanel = document.getElementById('layer-panel');
+    const layerStatus = document.getElementById('layer-status');
+    const geoCache = {};
+    const geoGroups = {};
+
+    const setStatus = (msg) => { if (layerStatus) layerStatus.textContent = msg; };
+
+    const esc = (v) => String(v ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+    const tooltipHtml = (title, rows) => {
+      if (!rows || !rows.length) rows = [['Información', '—']];
+      return '<div class="geojson-tt"><h6>' + esc(title) + '</h6><table>' +
+        rows.map(r => '<tr><td class="tt-key">' + esc(r[0]) + '</td><td class="tt-val">' + esc(r[1]) + '</td></tr>').join('') +
+        '</table></div>';
+    };
+
+    const ttRows = (p, keys) => keys
+      .filter(([k]) => p[k] !== null && p[k] !== undefined && p[k] !== '')
+      .map(([k, l]) => [l, p[k]]);
+
+    const geoLayers = [
+      {
+        id: 'tabasco', color: '#0c2340',
+        label: 'Límite estatal de Tabasco',
+        url: 'data/Tabasco_wgs84.geojson', js: 'data/layers/tabasco.js',
+        style: () => ({ color: '#0c2340', weight: 1.6, opacity: 0.85, fill: false }),
+        tooltip: (p) => ({ title: 'Estado de Tabasco', rows: ttRows(p, [['ENTIDAD', 'Entidad'], ['CAPITAL', 'Capital']]) })
+      },
+      {
+        id: 'clip', color: '#c8a415',
+        label: 'Franja costera afectada (buffers 1–20 km)',
+        url: 'data/Sanchez_Paraiso_Frontera_clip_wgs84.geojson', js: 'data/layers/clip.js',
+        style: (f) => {
+          const d = Number(f.properties && f.properties.distance);
+          return {
+            color: '#c8a415', weight: 1.1, opacity: 0.75,
+            fillColor: '#c8a415',
+            fillOpacity: d === 1000 ? 0.14 : d === 5000 ? 0.09 : d === 10000 ? 0.06 : 0.04
+          };
+        },
+        tooltip: (p) => ({ title: 'Franja costera (buffer)', rows: [['Distancia', (Number(p.distance) / 1000) + ' km']] })
+      },
+      {
+        id: 'symdiff', color: '#7d3c98',
+        label: 'Diferencia simétrica de la franja costera',
+        url: 'data/Sanchez_Paraiso_Frontera_SymDiff_wgs84.geojson', js: 'data/layers/symdiff.js',
+        style: (f) => {
+          const d = Number(f.properties && f.properties.distance);
+          return {
+            color: '#7d3c98', weight: 1.2, opacity: 0.75,
+            fillColor: '#7d3c98',
+            fillOpacity: d === 1000 ? 0.16 : d === 5000 ? 0.1 : d === 10000 ? 0.07 : 0.05
+          };
+        },
+        tooltip: (p) => ({ title: 'Diferencia de franja costera', rows: [['Distancia', (Number(p.distance) / 1000) + ' km']] })
+      },
+      {
+        id: 'pozos', color: '#c0392b',
+        label: 'Pozos petroleros terrestres',
+        url: 'data/Pozos_Loc.geojson', js: 'data/layers/pozos.js',
+        pointStyle: () => ({ color: '#ffffff', weight: 1, radius: 4, fillColor: '#c0392b', fillOpacity: 0.9 }),
+        tooltip: (p) => ({ title: p.pozo || 'Pozo', rows: ttRows(p, [
+          ['campo', 'Campo'], ['ubicacin', 'Ubicación'], ['clasificac', 'Clasificación'],
+          ['estado_act', 'Estado'], ['tipo_de_hi', 'Tipo'], ['profundida', 'Prof. (m)'], ['trayectori', 'Trayectoria']
+        ]) })
+      },
+      {
+        id: 'aguas', color: '#1a7a9e',
+        label: 'Pozos en aguas someras',
+        url: 'data/Posos_Aguas_Someras_Loc.geojson', js: 'data/layers/aguas.js',
+        pointStyle: () => ({ color: '#ffffff', weight: 1, radius: 4, fillColor: '#1a7a9e', fillOpacity: 0.9 }),
+        tooltip: (p) => ({ title: p.pozo || 'Pozo', rows: ttRows(p, [
+          ['campo', 'Campo'], ['entidad', 'Entidad'], ['estado_act', 'Estado'],
+          ['tipo_de_hi', 'Tipo'], ['profundida', 'Prof. (m)']
+        ]) })
+      },
+      {
+        id: 'ductos', color: '#2c3e50',
+        label: 'Ductos petroleros',
+        url: 'data/Ductos_Petroleros_Loc.geojson', js: 'data/layers/ductos.js',
+        style: () => ({ color: '#2c3e50', weight: 3, opacity: 0.85 }),
+        tooltip: (p) => ({ title: p.ducto || 'Ducto', rows: ttRows(p, [
+          ['regin', 'Región'], ['servicio', 'Servicio'], ['longitud', 'Longitud (km)'], ['capacidad_', 'Capacidad (b/d)']
+        ]) })
+      },
+      {
+        id: 'reservas', color: '#27ae60',
+        label: 'Reservas',
+        url: 'data/Reservas_Loc.geojson', js: 'data/layers/reservas.js',
+        style: () => ({ color: '#27ae60', weight: 1.4, opacity: 0.8, fillColor: '#27ae60', fillOpacity: 0.18 }),
+        tooltip: (p) => ({ title: p.nombre || 'Reserva', rows: ttRows(p, [
+          ['superficie', 'Superficie (km²)'], ['ubicacin', 'Ubicación'], ['petrleo_cr', 'Petróleo crudo'], ['gas_natura', 'Gas natural']
+        ]) })
+      },
+      {
+        id: 'concesiones', color: '#16a085',
+        label: 'Concesiones con recursos',
+        url: 'data/Con_Recursos_Loc.geojson', js: 'data/layers/concesiones.js',
+        style: () => ({ color: '#16a085', weight: 1.4, opacity: 0.8, fillColor: '#16a085', fillOpacity: 0.18 }),
+        tooltip: (p) => ({ title: p.nombre || 'Concesión', rows: ttRows(p, [['comentario', 'Comentario']]) })
+      }
+    ];
+
+    const onEach = (cfg) => (feature, layer) => {
+      layer.bindTooltip(() => {
+        const tip = cfg.tooltip(feature.properties || {});
+        return tooltipHtml(tip.title, tip.rows);
+      }, { sticky: true, className: 'geojson-tip' });
+    };
+
+    const geoOptions = (cfg) => ({
+      style: cfg.style,
+      pointToLayer: cfg.pointStyle
+        ? (f, latlng) => L.circleMarker(latlng, cfg.pointStyle(f.properties || {}))
+        : undefined,
+      onEachFeature: onEach(cfg)
+    });
+
+    async function loadGeo(cfg) {
+      if (!geoCache[cfg.id]) {
+        try {
+          const res = await fetch(cfg.url);
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          geoCache[cfg.id] = await res.json();
+        } catch (err) {
+          await new Promise((resolve, reject) => {
+            const s = document.createElement('script');
+            s.src = cfg.js;
+            s.onload = () => { geoCache[cfg.id] = window.GEO_LAYER_DATA && window.GEO_LAYER_DATA[cfg.id]; resolve(); };
+            s.onerror = () => reject(new Error('No se pudo cargar ' + cfg.js));
+            document.head.appendChild(s);
+          });
+        }
+      }
+      return geoCache[cfg.id];
+    }
+
+    async function enableLayer(cfg, item) {
+      const cb = item.querySelector('input');
+      if (geoGroups[cfg.id]) { geoGroups[cfg.id].addTo(locMap); return; }
+      item.classList.add('loading');
+      setStatus('Cargando «' + cfg.label + '»…');
+      try {
+        const data = await loadGeo(cfg);
+        const grp = L.geoJSON(data, geoOptions(cfg));
+        grp.addTo(locMap);
+        geoGroups[cfg.id] = grp;
+        const n = data.features ? data.features.length : 0;
+        setStatus('«' + cfg.label + '»: ' + n + (n === 1 ? ' elemento' : ' elementos') + '.');
+      } catch (err) {
+        cb.checked = false;
+        setStatus('No se pudo cargar «' + cfg.label + '»: ' + err.message);
+      } finally {
+        item.classList.remove('loading');
+      }
+    }
+
+    function disableLayer(cfg) {
+      if (geoGroups[cfg.id]) locMap.removeLayer(geoGroups[cfg.id]);
+      setStatus('Capa «' + cfg.label + '» desactivada.');
+    }
+
+    if (layerPanel) {
+      geoLayers.forEach(cfg => {
+        const item = document.createElement('label');
+        item.className = 'layer-item';
+        item.innerHTML = '<input type="checkbox" aria-label="' + esc(cfg.label) + '">' +
+          '<span class="layer-swatch" style="background:' + cfg.color + '"></span>' +
+          '<span class="layer-name">' + esc(cfg.label) + '</span>';
+        item.querySelector('input').addEventListener('change', (e) => {
+          if (e.target.checked) enableLayer(cfg, item); else disableLayer(cfg);
+        });
+        layerPanel.appendChild(item);
+      });
+      // Límite estatal visible por defecto
+      const first = Array.from(layerPanel.querySelectorAll('.layer-item'))[0];
+      if (first) {
+        first.querySelector('input').checked = true;
+        enableLayer(geoLayers[0], first);
+      }
+    }
+
     const mkIcon = (color) => L.divIcon({
       className: '', html: `<div style="background:${color};width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4);"></div>`,
       iconSize: [20,20], iconAnchor: [10,10], popupAnchor: [0,-14]
