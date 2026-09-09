@@ -174,7 +174,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const ttRows = (p, keys) => keys
       .filter(([k]) => p[k] !== null && p[k] !== undefined && p[k] !== '')
-      .map(([k, l]) => [l, p[k]]);
+      .map(([k, l, f]) => [l, f ? f(p[k]) : p[k]]);
+
+    const fmtPob = (v) => Number(v).toLocaleString('es-MX');
+    const cabLabel = (v) => (v === 'Si' ? 'Sí' : v);
 
     const coastalStyle = (f) => {
       const d = Number(f.properties && f.properties.distance);
@@ -191,7 +194,25 @@ document.addEventListener('DOMContentLoaded', () => {
         label: 'Tres localidades (Sánchez Magallanes, M. de la Madrid, El Bosque)',
         url: 'data/Sanchez_Paraiso_Frontera.geojson', js: 'data/layers/localidades.js',
         style: () => ({ color: '#0e4d6f', weight: 1.6, opacity: 0.85, fillColor: '#0e4d6f', fillOpacity: 0.12 }),
-        tooltip: (p) => ({ title: p.NOMGEO || 'Localidad', rows: ttRows(p, [['POB1', 'Población'], ['CABECERA', 'Cabecera']]) })
+        tooltip: (p) => ({ title: p.NOMGEO || 'Localidad', rows: ttRows(p, [['POB1', 'Población', fmtPob], ['CABECERA', 'Cabecera']]) })
+      },
+      {
+        id: 'rurales', color: '#8e44ad',
+        label: 'Localidades rurales',
+        url: 'data/Localidades_Rurales.geojson', js: 'data/layers/localidades_rurales.js',
+        pointStyle: () => ({ color: '#ffffff', weight: 1, radius: 4, fillColor: '#8e44ad', fillOpacity: 0.9 }),
+        tooltip: (p) => ({ title: p.NOMGEO || 'Localidad rural', rows: ttRows(p, [
+          ['POB1', 'Población', fmtPob], ['NOM_MUN', 'Municipio'], ['CVEGEO', 'Clave']
+        ]) })
+      },
+      {
+        id: 'urbanas', color: '#d35400',
+        label: 'Localidades urbanas',
+        url: 'data/Localidades_Urbanas.geojson', js: 'data/layers/localidades_urbanas.js',
+        style: () => ({ color: '#d35400', weight: 1.4, opacity: 0.8, fillColor: '#d35400', fillOpacity: 0.18 }),
+        tooltip: (p) => ({ title: p.NOMGEO || 'Localidad urbana', rows: ttRows(p, [
+          ['POB1', 'Población', fmtPob], ['NOM_MUN', 'Municipio'], ['CABECERA', 'Cabecera', cabLabel]
+        ]) })
       },
       {
         id: 'tabasco', color: '#0c2340',
@@ -332,10 +353,13 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         layerPanel.appendChild(item);
       });
-      // Todas las capas cargadas al iniciar
+      // Solo el tema central y la franja costera se cargan al iniciar; el resto manual
+      const AUTO_LOAD = new Set(['localidades', 'clip']);
       Array.from(layerPanel.querySelectorAll('.layer-item')).forEach((item, i) => {
-        item.querySelector('input').checked = true;
-        enableLayer(geoLayers[i], item);
+        if (AUTO_LOAD.has(geoLayers[i].id)) {
+          item.querySelector('input').checked = true;
+          enableLayer(geoLayers[i], item);
+        }
       });
     }
 
