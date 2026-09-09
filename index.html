@@ -32,18 +32,22 @@
     .loc-tab-btn.active { background: var(--primary); border-color: var(--primary); color: var(--white); }
     .loc-tab-panel { display: none; }
     .loc-tab-panel.active { display: block; }
-    .map-wrapper { border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); margin: 2rem 0; border: 2px solid var(--gray-200); }
+    .map-wrapper { position: relative; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow-lg); margin: 2rem 0; border: 2px solid var(--gray-200); }
     #map-loc { width: 100%; height: 500px; }
     .map-controls { padding: 1rem 1.5rem; background: var(--gray-50); border-top: 1px solid var(--gray-200); display: flex; flex-wrap: wrap; gap: 0.8rem; align-items: center; }
     .map-controls label { font-size: 0.85rem; font-weight: 600; color: var(--gray-800); }
     .map-controls select { padding: 0.4rem 0.8rem; border: 1px solid var(--gray-200); border-radius: 8px; font-size: 0.85rem; background: var(--white); }
-    .layer-panel { display: flex; flex-wrap: wrap; gap: 0.45rem 0.8rem; flex: 1 1 100%; margin-top: 0.5rem; }
-    .layer-item { display: inline-flex; align-items: center; gap: 0.45rem; padding: 0.3rem 0.7rem 0.3rem 0.5rem; border: 1px solid var(--gray-200); border-radius: 20px; background: var(--white); font-size: 0.82rem; color: var(--gray-800); cursor: pointer; transition: var(--transition); user-select: none; }
-    .layer-item:hover { border-color: var(--sea-light); }
-    .layer-item input { accent-color: var(--sea); cursor: pointer; margin: 0; }
+    .map-layers { position: absolute; top: 10px; right: 10px; z-index: 800; width: 300px; max-width: calc(100% - 20px); background: var(--white); border: 1px solid var(--gray-200); border-radius: 10px; box-shadow: var(--shadow-md); overflow: hidden; font-family: 'Source Sans 3', sans-serif; }
+    .map-layers-head { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; padding: 0.5rem 0.85rem; background: var(--primary); color: var(--white); cursor: pointer; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.03em; user-select: none; }
+    .map-layers-head .toggle { font-size: 0.72rem; opacity: 0.9; }
+    .map-layers-body { padding: 0.6rem 0.7rem; display: flex; flex-direction: column; gap: 0.3rem; max-height: 320px; overflow-y: auto; }
+    .map-layers-body.collapsed { display: none; }
+    .layer-item { display: flex; align-items: center; gap: 0.45rem; padding: 0.22rem 0.35rem; border-radius: 6px; font-size: 0.78rem; color: var(--gray-800); cursor: pointer; transition: var(--transition); user-select: none; }
+    .layer-item:hover { background: var(--sand-light); }
+    .layer-item input { accent-color: var(--sea); cursor: pointer; margin: 0; flex-shrink: 0; }
     .layer-item.loading { opacity: 0.55; pointer-events: none; }
-    .layer-swatch { width: 12px; height: 12px; border-radius: 3px; flex-shrink: 0; box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); }
-    .layer-status { flex: 1 1 100%; font-size: 0.76rem; color: var(--gray-600); min-height: 0.9em; }
+    .layer-item .layer-swatch { width: 11px; height: 11px; border-radius: 3px; flex-shrink: 0; box-shadow: inset 0 0 0 1px rgba(0,0,0,.18); }
+    .map-layer-status { padding: 0.3rem 0.85rem 0.55rem; font-size: 0.72rem; color: var(--gray-600); border-top: 1px solid var(--gray-100); min-height: 1em; }
     .geojson-tt h6 { margin: 0 0 5px; color: var(--primary); font-size: 0.8rem; font-weight: 700; line-height: 1.25; }
     .geojson-tt table { border-collapse: collapse; }
     .geojson-tt td { padding: 1px 8px 1px 0; font-size: 0.78rem; vertical-align: top; }
@@ -648,10 +652,18 @@
       <div class="section-header reveal" style="margin-top:3rem;">
         <span class="section-label">Ubicación</span>
         <h2 class="section-title">Mapa de las Tres Localidades</h2>
-        <p class="section-desc">Visor interactivo con mapas base y capas temáticas (GeoJSON). Marque o desmarque las capas para encenderlas o apagarlas, y pase el cursor sobre los vectores para ver su información.</p>
+        <p class="section-desc">Visor interactivo con mapas base y capas temáticas (GeoJSON). Al iniciar se cargan todas las capas; el panel <strong>Capas del visor</strong> (dentro del mapa, colapsable con un clic) permite encenderlas o apagarlas, y al pasar el cursor sobre los vectores se muestra su información.</p>
       </div>
       <div class="map-wrapper reveal">
         <div id="map-loc"></div>
+        <div class="map-layers">
+          <div class="map-layers-head" id="layers-head">
+            <span>Capas del visor</span>
+            <span class="toggle" id="layers-toggle">▴ Ocultar</span>
+          </div>
+          <div class="map-layers-body" id="layers-body"></div>
+          <div class="map-layer-status" id="layer-status"></div>
+        </div>
         <div class="map-controls">
           <label for="map-select">Capa base:</label>
           <select id="map-select">
@@ -659,8 +671,6 @@
             <option value="sat">Imagen Satelital (Esri)</option>
             <option value="topo">Topográfico (Esri)</option>
           </select>
-          <div id="layer-panel" class="layer-panel"></div>
-          <span id="layer-status" class="layer-status"></span>
         </div>
       </div>
 

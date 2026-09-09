@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // ==================== TEMATIC LAYERS (GeoJSON dynamic viewer) ====================
-    const layerPanel = document.getElementById('layer-panel');
+    const layerPanel = document.getElementById('layers-body');
     const layerStatus = document.getElementById('layer-status');
     const geoCache = {};
     const geoGroups = {};
@@ -176,7 +176,23 @@ document.addEventListener('DOMContentLoaded', () => {
       .filter(([k]) => p[k] !== null && p[k] !== undefined && p[k] !== '')
       .map(([k, l]) => [l, p[k]]);
 
+    const coastalStyle = (f) => {
+      const d = Number(f.properties && f.properties.distance);
+      return {
+        color: '#c8a415', weight: 1.1, opacity: 0.75,
+        fillColor: '#c8a415',
+        fillOpacity: d === 1000 ? 0.08 : d === 5000 ? 0.05 : d === 10000 ? 0.03 : 0.02
+      };
+    };
+
     const geoLayers = [
+      {
+        id: 'localidades', color: '#0e4d6f',
+        label: 'Tres localidades (Sánchez Magallanes, M. de la Madrid, El Bosque)',
+        url: 'data/Sanchez_Paraiso_Frontera.geojson', js: 'data/layers/localidades.js',
+        style: () => ({ color: '#0e4d6f', weight: 1.6, opacity: 0.85, fillColor: '#0e4d6f', fillOpacity: 0.12 }),
+        tooltip: (p) => ({ title: p.NOMGEO || 'Localidad', rows: ttRows(p, [['POB1', 'Población'], ['CABECERA', 'Cabecera']]) })
+      },
       {
         id: 'tabasco', color: '#0c2340',
         label: 'Límite estatal de Tabasco',
@@ -188,28 +204,14 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 'clip', color: '#c8a415',
         label: 'Franja costera afectada (buffers 1–20 km)',
         url: 'data/Sanchez_Paraiso_Frontera_clip_wgs84.geojson', js: 'data/layers/clip.js',
-        style: (f) => {
-          const d = Number(f.properties && f.properties.distance);
-          return {
-            color: '#c8a415', weight: 1.1, opacity: 0.75,
-            fillColor: '#c8a415',
-            fillOpacity: d === 1000 ? 0.5 : d === 5000 ? 0.09 : d === 10000 ? 0.06 : 0.04
-          };
-        },
+        style: coastalStyle,
         tooltip: (p) => ({ title: 'Franja costera (buffer)', rows: [['Distancia', (Number(p.distance) / 1000) + ' km']] })
       },
       {
-        id: 'symdiff', color: '#7d3c98',
+        id: 'symdiff', color: '#c8a415',
         label: 'Diferencia simétrica de la franja costera',
         url: 'data/Sanchez_Paraiso_Frontera_SymDiff_wgs84.geojson', js: 'data/layers/symdiff.js',
-        style: (f) => {
-          const d = Number(f.properties && f.properties.distance);
-          return {
-            color: '#7d3c98', weight: 1.2, opacity: 0.75,
-            fillColor: '#7d3c98',
-            fillOpacity: d === 1000 ? 0.16 : d === 5000 ? 0.1 : d === 10000 ? 0.07 : 0.05
-          };
-        },
+        style: coastalStyle,
         tooltip: (p) => ({ title: 'Diferencia de franja costera', rows: [['Distancia', (Number(p.distance) / 1000) + ' km']] })
       },
       {
@@ -330,41 +332,19 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         layerPanel.appendChild(item);
       });
-      // Límite estatal visible por defecto
-      const first = Array.from(layerPanel.querySelectorAll('.layer-item'))[0];
-      if (first) {
-        first.querySelector('input').checked = true;
-        enableLayer(geoLayers[0], first);
-      }
+      // Todas las capas cargadas al iniciar
+      Array.from(layerPanel.querySelectorAll('.layer-item')).forEach((item, i) => {
+        item.querySelector('input').checked = true;
+        enableLayer(geoLayers[i], item);
+      });
     }
 
-    const mkIcon = (color) => L.divIcon({
-      className: '', html: `<div style="background:${color};width:14px;height:14px;border-radius:50%;border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.4);"></div>`,
-      iconSize: [20,20], iconAnchor: [10,10], popupAnchor: [0,-14]
-    });
-
-    const locData = [
-      { name:'El Bosque, Centla', lat:18.55, lng:-92.633, color:'#c0392b',
-        pop:'172 hab.', alt:'0 m.s.n.m.', act:'Pesca artesanal',
-        desc:'Pueblo costero reubicado por cambio climático. Erosión severa.' },
-      { name:'Sánchez Magallanes, Cárdenas', lat:18.2957, lng:-93.8610, color:'#27ae60',
-        pop:'9,787 hab.', alt:'10 m.s.n.m.', act:'Pesca de ostiones',
-        desc:'Puerto pesquero en la Barra de Santa Ana. Mayor productor de ostiones de Tabasco.' },
-      { name:'El Pénjamo, Paraíso', lat:18.48, lng:-93.22, color:'#0e4d6f',
-        pop:'1,966 hab. (sección)', alt:'0-20 m.s.n.m.', act:'Petróleo (PEMEX)',
-        desc:'Cercano a Dos Bocas y la Refinería Olmeca. Economía petrolera dominante.' }
-    ];
-
-    locData.forEach(d => {
-      L.marker([d.lat,d.lng],{icon:mkIcon(d.color)}).addTo(locMap)
-        .bindPopup(`<div style="min-width:200px;font-family:'Source Sans 3',sans-serif;">
-          <h4 style="margin:0 0 6px;color:${d.color};font-size:13px;">${d.name}</h4>
-          <p style="margin:2px 0;font-size:12px;"><b>Población:</b> ${d.pop}</p>
-          <p style="margin:2px 0;font-size:12px;"><b>Altitud:</b> ${d.alt}</p>
-          <p style="margin:2px 0;font-size:12px;"><b>Actividad:</b> ${d.act}</p>
-          <p style="margin:6px 0 0;font-size:11px;color:#555;">${d.desc}</p>
-        </div>`,{maxWidth:260});
-      L.circle([d.lat,d.lng],{color:d.color,fillColor:d.color,fillOpacity:.12,radius:8000}).addTo(locMap);
+    // Panel de capas colapsable dentro de la ventana del mapa
+    const layersHead = document.getElementById('layers-head');
+    const layersToggle = document.getElementById('layers-toggle');
+    layersHead?.addEventListener('click', () => {
+      const collapsed = layerPanel.classList.toggle('collapsed');
+      if (layersToggle) layersToggle.textContent = collapsed ? '▾ Mostrar' : '▴ Ocultar';
     });
 
     L.control.scale().addTo(locMap);
