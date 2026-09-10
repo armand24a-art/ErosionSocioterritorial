@@ -197,7 +197,7 @@ document.addEventListener('DOMContentLoaded', () => {
         tooltip: (p) => ({ title: p.NOMGEO || 'Localidad', rows: ttRows(p, [['POB1', 'Población', fmtPob], ['CABECERA', 'Cabecera']]) })
       },
       {
-        id: 'buffer', color: '#d81b60',
+        id: 'buffer', color: '#c8d183',
         label: 'Buffers 1–20 km (Sánchez–Paraíso–Frontera)',
         url: 'data/Sanchez_Paraiso_Frontera_Buffer.geojson', js: 'data/layers/buffer.js',
         style: (f) => {
@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         layerPanel.appendChild(item);
       });
       // Solo las tres localidades y los buffers 1–20 km se cargan al iniciar; el resto manual
-      const AUTO_LOAD = new Set(['localidades', 'buffer']);
+      const AUTO_LOAD = new Set(['localidades', 'buffer', 'rurales', 'urbanas', 'tabasco', 'clip', 'concesiones']);
       Array.from(layerPanel.querySelectorAll('.layer-item')).forEach((item, i) => {
         if (AUTO_LOAD.has(geoLayers[i].id)) {
           item.querySelector('input').checked = true;
