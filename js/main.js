@@ -373,7 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         layerPanel.appendChild(item);
       });
       // Solo las tres localidades y los buffers 1–20 km se cargan al iniciar; el resto manual
-      const AUTO_LOAD = new Set(['localidades', 'rurales', 'urbanas', 'tabasco', 'clip', 'reservas']);
+      const AUTO_LOAD = new Set(['localidades', 'rurales','urbanas', 'tabasco', 'clip', 'reservas',pozo]);
       Array.from(layerPanel.querySelectorAll('.layer-item')).forEach((item, i) => {
         if (AUTO_LOAD.has(geoLayers[i].id)) {
           item.querySelector('input').checked = true;
