@@ -81,7 +81,7 @@
   <nav class="navbar">
     <div class="navbar-inner">
       <a href="#inicio" class="navbar-brand">
-        <img class="brand-icon" src="img/logo-erosion.png" alt="Logotipo Erosión Socioterritorial" style="width:40px;height:40px;object-fit:cover;border-radius:8px;background:transparent;border:none;display:inline-block;padding:0;">
+        <div class="brand-icon">🌊</div>
         <span class="brand-text">Erosión Socioterritorial</span>
       </a>
       <button class="hamburger" aria-label="Menú">
@@ -782,13 +782,32 @@
         <p class="section-desc">Espacio destinado para fotografías del proceso investigativo, comunidades costeras y trabajo de campo</p>
       </div>
 
+      <!-- INSTRUCCIONES PARA AGREGAR FOTOGRAFÍAS -->
+      <div class="instructions-box reveal">
+        <h3>📋 Cómo agregar fotografías a la galería</h3>
+        <p>Para agregar tus fotografías a esta galería, sigue estos pasos:</p>
+        <ol>
+          <li>Guarda tus imágenes en la carpeta <code>img/</code> con nombres descriptivos sin espacios ni caracteres especiales (usa guiones).</li>
+          <li>Ejemplos de nombres válidos: <code>campo-bosque-01.jpg</code>, <code>reunion-comunitaria.jpg</code>, <code>erosion-playa.jpg</code></li>
+          <li>En la sección de galería más abajo, duplica el bloque <code>gallery-item</code> y cambia la ruta de la imagen.</li>
+        </ol>
+        <p>Formatos recomendados: <strong>JPG</strong> o <strong>PNG</strong>. Tamaño ideal: 1200x900 px o similar.</p>
+        <div class="code-block">&lt;div class="gallery-item" data-src="img/mi-foto.jpg" data-caption="Descripción de la foto"&gt;
+  &lt;img src="img/mi-foto.jpg" alt="Descripción"&gt;
+  &lt;div class="gallery-overlay"&gt;
+    &lt;h4&gt;Título de la foto&lt;/h4&gt;
+    &lt;p&gt;Descripción breve&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</div>
+      </div>
+
       <div class="gallery-grid reveal" style="margin-top: 2rem;">
         <!-- Bloque 1 - Reemplaza con tu imagen -->
-        <div class="gallery-item" data-src="img/campo-bosque-01.jpg" data-caption="Trabajo de campo en comunidad costera">
-          <img src="img/campo-bosque-01.jpg" alt="Trabajo de campo" onerror="this.style.display='none'">
+        <div class="gallery-item" data-src="img/campo-01.jpg" data-caption="Trabajo de campo en comunidad costera">
+          <img src="img/campo-01.jpg" alt="Trabajo de campo" onerror="this.style.display='none'">
           <div class="gallery-placeholder">
             <span class="placeholder-icon">📷</span>
-            <span class="placeholder-text">Trabajo de campo<br><small>img/campo-bosque-01.jpg</small></span>
+            <span class="placeholder-text">Trabajo de campo<br><small>img/campo-01.jpg</small></span>
           </div>
           <div class="gallery-overlay">
             <h4>Trabajo de Campo</h4>
@@ -797,11 +816,11 @@
         </div>
 
         <!-- Bloque 2 -->
-        <div class="gallery-item" data-src="img/erosion-playa.jpg" data-caption="Procesos de erosión costera">
-          <img src="img/erosion-playa.jpg" alt="Erosión costera" onerror="this.style.display='none'">
+        <div class="gallery-item" data-src="img/erosion-01.jpg" data-caption="Procesos de erosión costera">
+          <img src="img/erosion-01.jpg" alt="Erosión costera" onerror="this.style.display='none'">
           <div class="gallery-placeholder">
             <span class="placeholder-icon">🌊</span>
-            <span class="placeholder-text">Erosión costera<br><small>img/erosion-playa.jpg</small></span>
+            <span class="placeholder-text">Erosión costera<br><small>img/erosion-01.jpg</small></span>
           </div>
           <div class="gallery-overlay">
             <h4>Erosión Costera</h4>
@@ -822,15 +841,15 @@
           </div>
         </div>
 
-        <!-- Bloque 4 - Reemplaza con tu imagen -->
-        <div class="gallery-item" data-src="img/reunion-comunitaria.jpg" data-caption="Reunión comunitaria participativa">
-          <img src="img/reunion-comunitaria.jpg" alt="Reunión comunitaria" onerror="this.style.display='none'">
+        <!-- Bloque 4 -->
+        <div class="gallery-item" data-src="img/taller-01.jpg" data-caption="Taller participativo con comunidades">
+          <img src="img/taller-01.jpg" alt="Taller participativo" onerror="this.style.display='none'">
           <div class="gallery-placeholder">
             <span class="placeholder-icon">🤝</span>
-            <span class="placeholder-text">Reunión comunitaria<br><small>img/reunion-comunitaria.jpg</small></span>
+            <span class="placeholder-text">Taller participativo<br><small>img/taller-01.jpg</small></span>
           </div>
           <div class="gallery-overlay">
-            <h4>Reunión Comunitaria</h4>
+            <h4>Taller Participativo</h4>
             <p>Cartografía social comunitaria</p>
           </div>
         </div>
