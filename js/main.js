@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const particle = document.createElement('div');
       particle.classList.add('particle');
       particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDuration = (4 + Math.random() * 20) + 's';
+      particle.style.animationDuration = (4 + Math.random() * 30) + 's';
       particle.style.animationDelay = Math.random() * 12 + 's';
       particle.style.width = (3 + Math.random() * 7) + 'px';
       particle.style.height = particle.style.width;
