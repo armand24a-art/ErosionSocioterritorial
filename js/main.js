@@ -61,14 +61,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // ==================== HERO PARTICLES ====================
   const particlesContainer = document.querySelector('.hero-particles');
   if (particlesContainer) {
-    for (let i = 0; i < 30; i++) {
+    for (let i = 0; i < 80; i++) {
       const particle = document.createElement('div');
       particle.classList.add('particle');
       particle.style.left = Math.random() * 100 + '%';
-      particle.style.animationDuration = (8 + Math.random() * 12) + 's';
-      particle.style.animationDelay = Math.random() * 10 + 's';
-      particle.style.width = (2 + Math.random() * 4) + 'px';
+      particle.style.animationDuration = (4 + Math.random() * 9) + 's';
+      particle.style.animationDelay = Math.random() * 12 + 's';
+      particle.style.width = (3 + Math.random() * 7) + 'px';
       particle.style.height = particle.style.width;
+      if (Math.random() > 0.7) particle.classList.add('particle-lg');
       particlesContainer.appendChild(particle);
     }
   }
@@ -193,19 +194,19 @@ document.addEventListener('DOMContentLoaded', () => {
         id: 'localidades', color: '#0e4d6f',
         label: 'Tres localidades (Sánchez Magallanes, M. de la Madrid, El Bosque)',
         url: 'data/Sanchez_Paraiso_Frontera.geojson', js: 'data/layers/localidades.js',
-        style: () => ({ color: '#0e4d6f', weight: 1.6, opacity: 0.85, fillColor: '#0e4d6f', fillOpacity: 0 }),
+        style: () => ({ color: '#0e4d6f', weight: 1.6, opacity: 0.85, fillColor: '#0e4d6f', fillOpacity: 0.12 }),
         tooltip: (p) => ({ title: p.NOMGEO || 'Localidad', rows: ttRows(p, [['POB1', 'Población', fmtPob], ['CABECERA', 'Cabecera']]) })
       },
       {
-        id: 'buffer', color: '#ea1e07',
+        id: 'buffer', color: '#d81b60',
         label: 'Buffers 1–20 km (Sánchez–Paraíso–Frontera)',
         url: 'data/Sanchez_Paraiso_Frontera_Buffer.geojson', js: 'data/layers/buffer.js',
         style: (f) => {
           const d = Number(f.properties && f.properties.distance);
           return {
-            color: '#ed0f61', weight: 1.2, opacity: 0.8,
-            fillColor: '#e1d554',
-            fillOpacity: d === 1000 ? 0.50 : d === 5000 ? 0.3 : d === 10000 ? 0.4 : 0.3
+            color: '#d81b60', weight: 1.2, opacity: 0.8,
+            fillColor: '#d81b60',
+            fillOpacity: d === 1000 ? 0.10 : d === 5000 ? 0.06 : d === 10000 ? 0.04 : 0.03
           };
         },
         tooltip: (p) => ({ title: 'Buffer ' + (Number(p.distance) / 1000) + ' km', rows: [
@@ -373,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         layerPanel.appendChild(item);
       });
       // Solo las tres localidades y los buffers 1–20 km se cargan al iniciar; el resto manual
-      const AUTO_LOAD = new Set(['localidades', 'rurales','urbanas', 'tabasco', 'clip', 'reservas', 'pozos']);
+      const AUTO_LOAD = new Set(['localidades', 'buffer']);
       Array.from(layerPanel.querySelectorAll('.layer-item')).forEach((item, i) => {
         if (AUTO_LOAD.has(geoLayers[i].id)) {
           item.querySelector('input').checked = true;
