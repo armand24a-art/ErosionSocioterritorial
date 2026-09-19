@@ -374,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
         layerPanel.appendChild(item);
       });
       // Solo las tres localidades y los buffers 1–20 km se cargan al iniciar; el resto manual
-      const AUTO_LOAD = new Set(['localidades', 'buffer', 'Localidades urbanas', 'Límite estatal de Tabasco', 'Franja costera afectada (buffers 1–20 km)', 'Diferencia simétrica de la franja costera', 'Pozos petroleros terrestres', 'Pozos en aguas someras',  'Reservas', 'Concesiones con recursos']);
+      const AUTO_LOAD = new Set(['localidades', 'buffer', 'localidades', 'buffer', 'rurales', 'urbanas', 'tabasco', 'symdiff', 'pozos', 'aguas', 'ductos', 'reservas', 'concesiones']);
       Array.from(layerPanel.querySelectorAll('.layer-item')).forEach((item, i) => {
         if (AUTO_LOAD.has(geoLayers[i].id)) {
           item.querySelector('input').checked = true;
