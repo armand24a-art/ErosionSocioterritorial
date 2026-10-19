@@ -1419,5 +1419,20 @@
   <!-- ==================== SCRIPTS ==================== -->
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/main.js"></script>
+  <script>
+  (function () {
+    var slides = document.querySelectorAll('.hero-slide');
+    if (!slides.length) return;
+    var i = 0;
+    slides[0].classList.add('active');
+    if (slides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setInterval(function () {
+        slides[i].classList.remove('active');
+        i = (i + 1) % slides.length;
+        slides[i].classList.add('active');
+      }, 5000);
+    }
+  })();
+  </script>
 </body>
 </html>
