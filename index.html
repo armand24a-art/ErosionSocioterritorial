@@ -1421,16 +1421,24 @@
   <script src="js/main.js"></script>
   <script>
   (function () {
-    var slides = document.querySelectorAll('.hero-slide');
-    if (!slides.length) return;
-    var i = 0;
-    slides[0].classList.add('active');
-    if (slides.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    function startHeroCarousel() {
+      var slides = document.querySelectorAll('.hero-slide');
+      if (slides.length < 2) {
+        if (slides.length === 1) slides[0].classList.add('active');
+        return;
+      }
+      var i = 0;
+      slides[0].classList.add('active');
       setInterval(function () {
         slides[i].classList.remove('active');
         i = (i + 1) % slides.length;
         slides[i].classList.add('active');
       }, 5000);
+    }
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', startHeroCarousel);
+    } else {
+      startHeroCarousel();
     }
   })();
   </script>
